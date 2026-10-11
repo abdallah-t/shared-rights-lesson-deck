@@ -87,4 +87,4 @@ Run `bun run build` then `bun run test`. The test prints one JSON line; `problem
 ## Things that are not finished
 
 - No AI illustrations were generated (the API key supplied at the time was invalid). `tools/gen_ai_assets.py` holds the prompts; it needs `OPENAI_API_KEY` in the environment or in a git-ignored `.env`. **Never commit a key.**
-- Text written by the assistant, not the teacher, and still awaiting her review: the scene captions inside the house on slide 4 (تعاون، إيثار، مواساة، سِتر، عون على الطاعة), the scenario on slide 20, the flawed AI answer on slide 21, the five finger questions on slide 25, and the one-line meaning under each right on slide 11.
+- Text written by the assistant, not the teacher, and still awaiting her review: the scene captions inside the house on slide 4 (تعاون، إيثار، مواساة، سِتر، عون على الطاعة), the scenario on slide 23, the flawed AI answer on slide 24, the five finger questions on slide 30, the one-line task under each court role (slides 17–20), and the one-line meaning under each right on slide 11.
