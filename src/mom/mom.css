@@ -340,3 +340,20 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .card > .chip { background: var(--fg) !important; border-color: var(--fg); color: var(--bg) !important; margin-bottom: 6px; }
 .reveal #stat h2 { font-size: 70px; }
 .reveal .quiz .stamp { top: -14px; }
+
+/* ---------- the four court roles, one slide each ---------- */
+.reveal .rolepage { position: relative; }
+.reveal .rolepage .bignum { position: absolute; left: 110px; top: 40px; font: 700 300px/1 'IBM Plex Sans Arabic'; color: transparent; -webkit-text-stroke: 3px var(--fg); direction: ltr; letter-spacing: -0.04em; }
+.reveal .rolepage .shape { position: absolute; left: 250px; top: 300px; width: 520px; height: 520px; display: grid; place-items: center; font-size: 250px; color: var(--paper); background: var(--red); }
+.reveal .rolepage .shape svg.e { stroke-width: 1.5; }
+.reveal .rolepage .shape.disc { border-radius: 50%; }
+.reveal .rolepage .shape.ring { border-radius: 50%; background: var(--ink); color: var(--red); }
+.reveal .rolepage .shape.square { rotate: -6deg; }
+.reveal .rolepage .shape.arch { border-radius: 260px 260px 0 0; height: 560px; top: 260px; }
+.reveal .rolepage .rtext { position: absolute; right: 110px; top: 250px; width: 900px; }
+.reveal .rolepage h1 { font-size: 168px; line-height: 1.18; margin-top: 10px; } .reveal .rolepage h1 span { display: block; }
+.reveal .rolepage .lead { font-size: 46px; margin-top: 22px; }
+.reveal .rolepage .timer { position: absolute; right: 110px; top: 50px; }
+.reveal .rolepage .ridx { position: absolute; right: 110px; left: 110px; bottom: 122px; display: flex; list-style: none; border-top: 2px solid var(--fg); }
+.reveal .rolepage .ridx li { flex: 1; padding: 14px 0 0; font: 600 25px 'IBM Plex Sans Arabic'; color: var(--mut); display: flex; gap: 12px; align-items: baseline; }
+.reveal .rolepage .ridx li b { font-weight: 700; } .reveal .rolepage .ridx li.on { color: var(--fg); box-shadow: 0 -6px 0 var(--red); } .reveal .rolepage .ridx li.on b { color: var(--red); }
