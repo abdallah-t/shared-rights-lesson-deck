@@ -1,0 +1,26 @@
+{
+  "name": "shared-rights-lesson-deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "bun scripts/test.ts"
+  },
+  "dependencies": {
+    "@fontsource/amiri": "^5.3.0",
+    "@fontsource/el-messiri": "^5.3.0",
+    "@fontsource/reem-kufi": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0",
+    "reveal.js": "^6.0.2",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "playwright-core": "^1.64.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}

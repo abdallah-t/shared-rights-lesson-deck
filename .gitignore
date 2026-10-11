@@ -1,0 +1,7 @@
+node_modules
+node_modules.nosync
+.env
+.env.*
+test-output
+.DS_Store
+public/assets/ai
