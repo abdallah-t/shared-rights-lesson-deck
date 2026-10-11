@@ -41,7 +41,7 @@ for (let k = 0; k < 200; k++) {
   await page.waitForTimeout(1500);
 }
 // A timer: start it and make sure it counts.
-await page.evaluate(() => (window as any).__deck.reveal.slide(14));
+await page.evaluate(() => (window as any).__deck.reveal.slide([...document.querySelectorAll('.reveal .slides > section')].findIndex((s) => s.querySelector('.timer'))));
 await page.waitForTimeout(1500);
 await page.keyboard.press('t');
 await page.waitForTimeout(3300);

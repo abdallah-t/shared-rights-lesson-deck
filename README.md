@@ -2,7 +2,7 @@
 
 عرض تقديمي تفاعلي لدرس «الحقوق المشتركة بين الزوجين» · أحكام الأسرة والزواج في الإسلام · دين 201 · ثاني ثانوي.
 
-An interactive lesson deck (28 slides, Arabic, right to left) built with reveal.js and a live three.js background, in a calm "Lantern Night" style.
+An interactive lesson deck (27 slides, Arabic, right to left) built with reveal.js and a live three.js background, in a calm "Lantern Night" style.
 
 ![Style board](docs/style-board.png)
 
@@ -27,7 +27,7 @@ Open this folder in Claude Code and say **"run the presentation"**. Instructions
 
 ## What's inside
 
-Title · class agreement · secret-student award · a journey back through history · divorce statistics · lesson objectives · **Activity 1:** the leaked chat, the detective quiz and the four missing rights · evidence for each right · all **seven shared rights** · assessment 1 · **Activity 2:** the courtroom case file, roles and verdict · "if you were a counsellor" · AI needs your help · assessment 2 · homework · closing activity · summary.
+Title · class agreement · secret-student award · a journey back through history · divorce statistics · lesson objectives · **Activity 1:** the leaked chat, the detective quiz and the four missing rights · evidence for each right · assessment 1 · **Activity 2:** the courtroom case file, three more shared rights with their evidence, roles and verdict · "if you were a counsellor" · AI needs your help · assessment 2 · homework · closing activity · summary.
 
 ## Sources and credits
 

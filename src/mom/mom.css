@@ -333,3 +333,5 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .hook .motes { fill: #f6e3b8; opacity: 0; transition: opacity 2s 1.5s; } .reveal .hook[data-sc='7'] .motes { opacity: 0.8; }
 .reveal .hook[data-sc='7'] .motes circle { animation: mote 7s ease-in-out infinite alternate; } .reveal .hook[data-sc='7'] .motes circle:nth-child(2n) { animation-duration: 9s; animation-direction: alternate-reverse; }
 @keyframes mote { from { transform: translate(-16px, 20px); } to { transform: translate(22px, -34px); } }
+
+.reveal .tally { position: absolute; left: 60px; bottom: 44px; padding: 12px 30px; border-radius: 16px; border: 2px dashed var(--gold); background: rgba(26, 21, 48, 0.9); font: 700 28px 'Tajawal'; color: var(--gold2); }
