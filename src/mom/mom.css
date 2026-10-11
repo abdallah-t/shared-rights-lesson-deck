@@ -82,7 +82,7 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .slides > section:first-child .chip.g { color: var(--red) !important; } .reveal .slides > section:first-child .chip small { color: var(--mut) !important; opacity: 1; }
 
 /* the four rights: columns that fill in */
-.reveal .door { position: relative; flex: 1; height: 620px; opacity: 1 !important; transform: none !important; padding: 0 34px; border-inline-start: 2px solid var(--fg); }
+.reveal .door { position: relative; flex: 1; height: 520px; opacity: 1 !important; transform: none !important; padding: 0 34px; border-inline-start: 2px solid var(--fg); }
 .reveal .door:first-child { border: 0; padding-inline-start: 0; }
 .reveal .door .leaf { display: none; }
 .reveal .door .q { display: block; font: 700 120px/1 'IBM Plex Sans Arabic'; color: transparent; -webkit-text-stroke: 2.5px var(--fg); direction: ltr; text-align: right; transition: color 0.5s; }
