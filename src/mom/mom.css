@@ -1,113 +1,220 @@
-/* «ليلة الفانوس»: a plum night lit by brass lanterns. One slide is 1920 x 1080, right to left. */
-:root {
-  --night: #1a1530; --plum: #3a2c5e; --plum2: #5b4474; --gold: #e3b866; --gold2: #f3d9a0;
-  --rose: #d9a093; --sage: #a9c58b; --teal: #6ec5c0; --cream: #f6eedd; --muted: #b9aecf; --coral: #e27d6f;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-html, body, body.reveal-viewport { margin: 0; height: 100%; background: var(--night); overflow: hidden; }
-#stage { position: fixed; inset: 0; margin: auto; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; display: block; z-index: 0; }
-.reveal { position: fixed; inset: 0; z-index: 1; background: transparent; color: var(--cream); font-family: 'Tajawal', system-ui, sans-serif; }
-.reveal .slides { text-align: right; direction: rtl; transition: opacity 0.25s ease; }
+/* «ورق وحبر» Paper & Ink: warm paper, black ink, one red. Editorial type, hairlines, no glow.
+   One slide is 1920 x 1080, right to left. */
+:root { --paper: #ece5d8; --ink: #16130f; --red: #d8432a; --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+html, body, body.reveal-viewport { margin: 0; height: 100%; background: var(--paper); overflow: hidden; transition: background 0.35s; }
+body.inv, body.inv.reveal-viewport { background: var(--ink); }
+body::after { content: ''; position: fixed; inset: 0; z-index: 5; background: var(--grain); opacity: 0.15; mix-blend-mode: multiply; pointer-events: none; }
+body.inv::after { mix-blend-mode: screen; opacity: 0.1; }
+/* a red sheet sweeps across between slides */
+#wipe { position: fixed; inset: 0; z-index: 4; background: var(--red); transform: translateX(101%); pointer-events: none; }
+#wipe.go { animation: wipe 0.7s cubic-bezier(0.7, 0, 0.3, 1) both; }
+@keyframes wipe { 0% { transform: translateX(101%); } 45%, 55% { transform: none; } 100% { transform: translateX(-101%); } }
+
+.reveal { position: fixed; inset: 0; z-index: 1; background: transparent; font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; }
+.reveal .slides { text-align: right; direction: rtl; transition: opacity 0.2s; }
 body.wiping .reveal .slides { opacity: 0; transition: none; }
-/* reveal sets display itself (config display: 'flex'), so past and future slides stay hidden. */
-.reveal .slides > section { box-sizing: border-box; width: 1920px; height: 1080px; padding: 76px 110px 70px; flex-direction: column; }
-.reveal .controls, .reveal .progress { color: var(--gold); }
 .reveal * { box-sizing: border-box; }
-.reveal p, .reveal h1, .reveal h2, .reveal h3, .reveal ul, .reveal ol { margin: 0; padding: 0; }
-.reveal img.e { width: 1em; height: 1em; vertical-align: -0.16em; display: inline-block; }
+.reveal p, .reveal h1, .reveal h2, .reveal h3, .reveal ul, .reveal ol { margin: 0; padding: 0; text-transform: none; text-shadow: none; }
+.reveal .slides > section {
+  --fg: var(--ink); --bg: var(--paper); --mut: #6b6459; --soft: #f4eee3;
+  /* names the slide markup still uses, mapped onto the two inks */
+  --gold: var(--red); --gold2: var(--red); --coral: var(--red); --rose: var(--fg); --sage: var(--fg); --teal: var(--fg); --cream: var(--fg); --muted: var(--mut); --c: var(--fg);
+  box-sizing: border-box; width: 1920px; height: 1080px; padding: 70px 110px 124px; flex-direction: column; color: var(--fg);
+}
+.reveal .slides > section.inv { --fg: var(--paper); --bg: var(--ink); --mut: #a39b8d; --soft: #23201b; }
+/* running foot: lesson title and page number over a rule */
+.reveal .slides > section::before { content: 'الحقوق المشتركة بين الزوجين · دين 201'; position: absolute; right: 110px; bottom: 44px; font: 600 21px 'IBM Plex Sans Arabic'; z-index: 4; }
+.reveal .slides > section::after { content: attr(data-n); position: absolute; left: 110px; right: 110px; bottom: 44px; border-top: 2px solid var(--fg); padding-top: 12px; font: 600 21px 'IBM Plex Sans Arabic'; direction: ltr; text-align: left; height: 40px; z-index: 4; }
+.reveal .slides > section::before { bottom: 46px; height: 26px; line-height: 26px; }
+.reveal .controls { color: var(--red); } .reveal .progress { display: none !important; }
+.reveal svg.e { width: 1em; height: 1em; vertical-align: -0.16em; display: inline-block; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---------- type ---------- */
-.reveal h1 { font: 700 118px/1.18 'El Messiri', serif; }
-.reveal h2 { font: 700 76px/1.2 'El Messiri', serif; }
-.reveal h3 { font: 700 46px/1.3 'El Messiri', serif; }
-.reveal .gold { color: var(--gold); } .reveal .rose { color: var(--rose); } .reveal .sage { color: var(--sage); } .reveal .teal { color: var(--teal); } .reveal .coral { color: var(--coral); } .reveal .muted { color: var(--muted); }
-.reveal .lead { font: 500 38px/1.7 'Tajawal'; }
-.reveal .small { font: 500 28px/1.6 'Tajawal'; color: var(--muted); }
-.reveal .tag { font: 700 31px/1 'Reem Kufi', 'Tajawal'; color: var(--gold); letter-spacing: 0.01em; display: flex; align-items: center; gap: 14px; }
-.reveal .tag::before { content: '۞'; font: 400 34px/1 'Amiri'; color: var(--gold); }
-.reveal .goal { font: 500 24px/1.5 'Tajawal'; color: var(--muted); border: 1.5px solid rgba(227, 184, 102, 0.35); border-radius: 999px; padding: 8px 26px; background: rgba(58, 44, 94, 0.5); width: fit-content; max-width: 1500px; }
-.reveal .goal b { color: var(--gold); font-weight: 700; }
-.reveal .shimmer { background: linear-gradient(100deg, var(--gold) 0 40%, #fff5d6 50%, var(--gold) 60% 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
-.reveal section.present .shimmer { animation: shimmer 2.2s 1.1s ease-out both; }
-@keyframes shimmer { from { background-position: 130% 0; } to { background-position: -30% 0; } }
+.reveal h1 { font: 900 190px/1.1 'Noto Kufi Arabic', sans-serif; letter-spacing: -0.02em; }
+.reveal h2 { font: 900 84px/1.25 'Noto Kufi Arabic', sans-serif; letter-spacing: -0.012em; }
+.reveal h3 { font: 700 42px/1.45 'Noto Kufi Arabic', sans-serif; }
+.reveal .gold, .reveal .coral, .reveal .shimmer { color: var(--red); } .reveal .rose, .reveal .sage, .reveal .teal { color: var(--fg); } .reveal .muted { color: var(--mut); }
+.reveal b.teal, .reveal b.gold { font-weight: 700; } .reveal .lead b.teal { box-shadow: inset 0 -5px 0 var(--red); }
+.reveal .lead { font: 400 36px/1.75 'IBM Plex Sans Arabic'; }
+.reveal .small { font: 400 27px/1.6 'IBM Plex Sans Arabic'; color: var(--mut); }
+.reveal .tag { font: 600 27px/1.2 'IBM Plex Sans Arabic'; display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.reveal .tag::before { content: ''; width: 18px; height: 18px; background: var(--red); flex: none; }
+.reveal .goal { font: 400 23px/1.5 'IBM Plex Sans Arabic'; color: var(--mut); border-inline-start: 6px solid var(--red); padding-inline-start: 16px; max-width: 1500px; margin-bottom: 14px; }
+.reveal .goal b { color: var(--fg); font-weight: 700; }
+.reveal .verse { font: 700 54px/2 'Amiri', serif; text-align: center; }
+.reveal .verse cite, .reveal cite { display: block; font: 600 24px/1.5 'IBM Plex Sans Arabic'; color: var(--mut); font-style: normal; margin-top: 2px; }
+.reveal kbd { display: inline-block; padding: 0 12px; border: 2px solid currentColor; font: 600 0.82em 'IBM Plex Sans Arabic'; direction: ltr; }
 
 /* ---------- entrances ---------- */
 .reveal section .in { opacity: 0; }
-.reveal section.present .in { animation: rise 0.8s var(--ease) both; animation-delay: calc(0.42s + var(--i, 0) * 0.1s); }
-.reveal section.present .in.pop { animation-name: pop; }
-.reveal section.present .in.swing { animation-name: swing; transform-origin: top center; }
-@keyframes rise { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: none; } }
-@keyframes pop { 0% { opacity: 0; transform: scale(0.4); } 70% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: none; } }
-@keyframes swing { 0% { opacity: 0; transform: rotate(-14deg); } 55% { opacity: 1; transform: rotate(5deg); } 100% { opacity: 1; transform: none; } }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.reveal section.present .in { animation: up 0.9s var(--ease) both; animation-delay: calc(0.42s + var(--i, 0) * 0.09s); }
+.reveal section.present .in.pop { animation-name: pop; } .reveal section.present .in.swing { animation-name: swing; transform-origin: top center; }
+@keyframes up { from { opacity: 0; transform: translateY(60px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(-30% -6% -30% -6%); } }
+@keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes swing { 0% { opacity: 0; transform: rotate(-12deg); } 55% { opacity: 1; transform: rotate(4deg); } 100% { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 .reveal .float { animation: float 4.5s ease-in-out infinite; }
-
-/* ---------- fragments ---------- */
-.reveal .fragment { opacity: 0; transform: translateY(22px); transition: opacity 0.45s ease, transform 0.6s var(--ease); visibility: visible; }
+.reveal .fragment { opacity: 0; transform: translateY(34px); transition: opacity 0.4s ease, transform 0.7s var(--ease); visibility: visible; }
 .reveal .fragment.visible { opacity: 1; transform: none; }
 .reveal .fragment.step { position: absolute; width: 0; height: 0; }
-.reveal .fragment.zoom { transform: scale(0.6); } .reveal .fragment.zoom.visible { transform: none; }
+.reveal .fragment.zoom { transform: scale(0.8); } .reveal .fragment.zoom.visible { transform: none; }
 
 /* ---------- pieces ---------- */
-.reveal .card { background: linear-gradient(180deg, rgba(91, 68, 116, 0.72), rgba(58, 44, 94, 0.78)); border: 1.5px solid rgba(227, 184, 102, 0.42); border-radius: 28px; padding: 30px 38px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.reveal .row { display: flex; gap: 30px; align-items: stretch; }
-.reveal .grow { flex: 1; min-height: 0; }
+.reveal .row { display: flex; gap: 30px; align-items: stretch; } .reveal .grow { flex: 1; min-height: 0; }
 .reveal .center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-.reveal .chip { display: inline-flex; align-items: center; gap: 12px; padding: 12px 28px; border-radius: 999px; font: 700 28px/1.2 'Tajawal'; background: var(--plum2); color: var(--cream); border: 1.5px solid rgba(255, 255, 255, 0.14); }
-.reveal .chip small { font: 500 21px 'Tajawal'; color: var(--gold2); }
-.reveal .chip.g { background: var(--gold); color: #2a1e0b; } .reveal .chip.r { background: var(--rose); color: #3a1a14; } .reveal .chip.s { background: var(--sage); color: #1c2a12; } .reveal .chip.t { background: var(--teal); color: #0e2b2a; }
-.reveal .big-emoji { font-size: 190px; line-height: 1; }
-.reveal .verse { font: 700 54px/2 'Amiri', serif; color: var(--gold2); text-align: center; }
-.reveal .verse cite, .reveal cite { display: block; font: 500 25px/1.5 'Tajawal'; color: var(--muted); font-style: normal; margin-top: 4px; }
-.reveal kbd { display: inline-block; padding: 0 14px; border: 2px solid currentColor; border-radius: 10px; font: 700 0.9em 'Tajawal'; direction: ltr; }
-.reveal .logos { position: absolute; bottom: 56px; left: 70px; display: flex; gap: 18px; align-items: center; }
-.reveal .logos img { height: 96px; border-radius: 12px; background: #fff; padding: 6px; }
+.reveal .card { border: 2px solid var(--fg); padding: 28px 34px; background: transparent; }
+.reveal .chip { display: inline-flex; align-items: baseline; gap: 12px; padding: 9px 22px; border: 2px solid var(--fg); font: 600 27px/1.3 'IBM Plex Sans Arabic'; }
+.reveal .chip small { font: 400 20px 'IBM Plex Sans Arabic'; color: var(--mut); }
+.reveal .chip.g { background: var(--red); border-color: var(--red); color: var(--paper); } .reveal .chip.g small { color: var(--paper); opacity: 0.8; }
+.reveal .chip.r, .reveal .chip.s, .reveal .chip.t { background: var(--fg); color: var(--bg); }
+.reveal .big-emoji { font-size: 150px; line-height: 1; color: var(--red); } .reveal .big-emoji svg.e { stroke-width: 2; }
+.reveal .logos { position: absolute; top: 60px; left: 110px; display: flex; gap: 22px; align-items: center; z-index: 3; } .reveal .logos img { height: 92px; mix-blend-mode: multiply; }
 
-/* mihrab arch card */
-.reveal .arch { border-radius: 999px 999px 30px 30px / 40% 40% 30px 30px; padding: 170px 24px 30px; text-align: center; position: relative; flex: 1; }
-.reveal .arch .ico { position: absolute; top: 44px; inset-inline: 0; font-size: 92px; line-height: 1; }
-.reveal .arch b { font: 700 36px/1.35 'El Messiri'; display: block; }
-.reveal .arch p { font: 500 26px/1.55 'Tajawal'; margin-top: 12px; opacity: 0.9; }
-.reveal .arch.c1 { border-color: var(--gold); } .reveal .arch.c1 b { color: var(--gold); }
-.reveal .arch.c2 { border-color: var(--rose); } .reveal .arch.c2 b { color: var(--rose); }
-.reveal .arch.c3 { border-color: var(--sage); } .reveal .arch.c3 b { color: var(--sage); }
-.reveal .arch.c4 { border-color: var(--teal); } .reveal .arch.c4 b { color: var(--teal); }
+/* title */
+.reveal .disc { position: absolute; left: 130px; top: 260px; width: 560px; height: 560px; border-radius: 50%; background: var(--red); z-index: 0; }
+.reveal .disc::after { content: ''; position: absolute; left: 340px; top: 330px; width: 330px; height: 330px; border-radius: 50%; border: 3px solid var(--ink); }
+.reveal section.present .disc { animation: disc 1.3s var(--ease) both 0.3s; } @keyframes disc { from { transform: scale(0); } }
+.reveal .slides > section:first-child .grow { position: relative; z-index: 2; gap: 0 !important; justify-content: flex-end !important; }
+.reveal .slides > section:first-child .tag { margin-bottom: 20px; }
+.reveal .slides > section:first-child .chip { border-width: 0 0 0 0; border-inline-start: 2px solid var(--fg); padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 0; font-size: 27px; background: none !important; color: var(--fg) !important; }
+.reveal .slides > section:first-child .chip.g { color: var(--red) !important; } .reveal .slides > section:first-child .chip small { color: var(--mut) !important; opacity: 1; }
 
-/* doors that open on a fragment */
-.reveal .door { position: relative; flex: 1; height: 600px; perspective: 1400px; opacity: 1 !important; transform: none !important; }
-.reveal .door .leaf { position: absolute; top: 0; bottom: 0; width: 50%; background: linear-gradient(180deg, #4a3a70, #2c2250); border: 2px solid var(--gold); transition: transform 1.1s var(--ease); z-index: 2; display: flex; align-items: center; }
-.reveal .door .leaf.l { left: 0; border-radius: 999px 0 0 30px / 46% 0 0 30px; transform-origin: left center; justify-content: flex-end; }
-.reveal .door .leaf.r { right: 0; border-radius: 0 999px 30px 0 / 0 46% 30px 0; transform-origin: right center; justify-content: flex-start; }
-.reveal .door .leaf::after { content: '۞'; font: 400 54px 'Amiri'; color: var(--gold); margin: 0 12px; }
-.reveal .door .leaf { transition: transform 1.1s var(--ease), opacity 0.5s 0.55s; }
-.reveal .door.visible .leaf.l { transform: rotateY(-104deg); opacity: 0; } .reveal .door.visible .leaf.r { transform: rotateY(104deg); opacity: 0; }
-.reveal .door .arch { height: 100%; }
-.reveal .door .arch > * { opacity: 0; transition: opacity 0.6s 0.35s ease; } .reveal .door.visible .arch > * { opacity: 1; }
-.reveal .door .q { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; font: 700 130px 'El Messiri'; color: var(--gold2); transition: opacity 0.3s; pointer-events: none; }
-.reveal .door.visible .q { opacity: 0; }
+/* the four rights: columns that fill in */
+.reveal .door { position: relative; flex: 1; height: 620px; opacity: 1 !important; transform: none !important; padding: 0 34px; border-inline-start: 2px solid var(--fg); }
+.reveal .door:first-child { border: 0; padding-inline-start: 0; }
+.reveal .door .leaf { display: none; }
+.reveal .door .q { display: block; font: 700 120px/1 'IBM Plex Sans Arabic'; color: transparent; -webkit-text-stroke: 2.5px var(--fg); direction: ltr; text-align: right; transition: color 0.5s; }
+.reveal .door .q::before { content: '0'; }
+.reveal .door.visible .q { color: var(--fg); }
+.reveal .arch { border: 0; padding: 0; text-align: right; }
+.reveal .arch > * { opacity: 0; transform: translateY(26px); transition: opacity 0.5s 0.1s, transform 0.7s 0.1s var(--ease); } .reveal .door.visible .arch > * { opacity: 1; transform: none; }
+.reveal .arch .ico { font-size: 88px; line-height: 1; color: var(--red); margin: 36px 0 22px; }
+.reveal .arch b { font: 700 38px/1.4 'Noto Kufi Arabic'; display: block; } .reveal .arch p { font: 400 26px/1.7 'IBM Plex Sans Arabic'; color: var(--mut); margin-top: 14px; }
 
 /* countdown ring */
 .reveal .timer { position: relative; width: 250px; height: 250px; cursor: pointer; flex: none; }
-.reveal .timer svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.reveal .timer circle { fill: none; stroke-width: 14; }
-.reveal .timer .bg { stroke: rgba(255, 255, 255, 0.12); } .reveal .timer .fg { stroke: var(--gold); stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke 0.4s; }
-.reveal .timer b { position: absolute; inset: 0; display: grid; place-items: center; font: 700 64px 'Reem Kufi'; direction: ltr; }
-.reveal .timer small { position: absolute; inset-inline: 0; bottom: 46px; text-align: center; font: 500 20px 'Tajawal'; color: var(--muted); }
-.reveal .timer.low .fg { stroke: var(--coral); } .reveal .timer.done b { color: var(--coral); animation: pulse 0.8s infinite; }
+.reveal .timer svg { width: 100%; height: 100%; transform: rotate(-90deg); } .reveal .timer circle { fill: none; stroke-width: 10; }
+.reveal .timer .bg { stroke: color-mix(in srgb, var(--fg) 16%, transparent); } .reveal .timer .fg { stroke: var(--fg); transition: stroke-dashoffset 1s linear, stroke 0.4s; }
+.reveal .timer b { position: absolute; inset: 0; display: grid; place-items: center; font: 700 58px 'IBM Plex Sans Arabic'; direction: ltr; padding-bottom: 14px; }
+.reveal .timer small { position: absolute; inset-inline: 0; bottom: 26%; text-align: center; font: 400 18px 'IBM Plex Sans Arabic'; color: var(--mut); }
+.reveal .timer.low .fg { stroke: var(--red); } .reveal .timer.done b { color: var(--red); animation: pulse 0.8s infinite; }
 
-/* assessment strip */
-.reveal .strip { display: flex; gap: 18px; flex-wrap: wrap; }
-.reveal .strip div { background: rgba(58, 44, 94, 0.8); border: 1.5px solid rgba(227, 184, 102, 0.35); border-radius: 18px; padding: 12px 26px; text-align: center; }
-.reveal .strip small { display: block; font: 700 20px 'Reem Kufi', 'Tajawal'; color: var(--gold); } .reveal .strip b { font: 700 28px 'Tajawal'; }
+.reveal .strip { display: flex; flex-wrap: wrap; } .reveal .strip div { border-inline-start: 2px solid var(--fg); padding: 2px 24px; } .reveal .strip div:first-child { border: 0; padding-inline-start: 0; }
+.reveal .strip small { display: block; font: 400 19px 'IBM Plex Sans Arabic'; color: var(--mut); } .reveal .strip b { font: 700 27px 'IBM Plex Sans Arabic'; }
+.reveal .mcq { font: 700 30px/1.5 'IBM Plex Sans Arabic'; } .reveal .mcq ol { list-style: none; margin-top: 12px; }
+.reveal .mcq li { font: 400 25px/1.5 'IBM Plex Sans Arabic'; padding: 11px 14px; border-top: 1px solid var(--fg); transition: all 0.4s; }
+.reveal .mcq.solved li.ok { background: var(--fg); color: var(--bg); font-weight: 600; } .reveal .mcq.solved li:not(.ok) { color: var(--mut); text-decoration: line-through; }
+.reveal .tally { position: absolute; left: 110px; bottom: 100px; padding: 10px 28px; border: 2px dashed var(--red); font: 700 27px 'IBM Plex Sans Arabic'; color: var(--red); background: var(--bg); z-index: 3; }
 
-/* multiple choice */
-.reveal .mcq { font: 700 32px/1.5 'Tajawal'; } .reveal .mcq ol { list-style: none; margin-top: 12px; display: grid; gap: 10px; }
-.reveal .mcq li { font: 500 28px/1.5 'Tajawal'; padding: 10px 22px; border-radius: 16px; background: rgba(255, 255, 255, 0.06); border: 1.5px solid transparent; transition: all 0.4s; }
-.reveal .mcq.solved li.ok { background: rgba(169, 197, 139, 0.22); border-color: var(--sage); color: #e3f2d3; }
-.reveal .mcq.solved li:not(.ok) { opacity: 0.45; }
+/* ---------- chart ---------- */
+.reveal .chart { position: relative; flex: 1; } .reveal .chart svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; direction: ltr; }
+.reveal .chart .axis { stroke: var(--fg); stroke-width: 2; } .reveal .chart .grid { stroke: color-mix(in srgb, var(--fg) 14%, transparent); stroke-width: 1.5; }
+.reveal .chart text { fill: var(--mut); font: 400 22px 'IBM Plex Sans Arabic'; }
+.reveal .chart .line { fill: none; stroke: var(--red); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.reveal .chart .area { fill: url(#fade); opacity: 0; transition: opacity 1s 2.4s; } .reveal .chart.drawn .line { animation: draw 2.8s ease-in-out forwards; } .reveal .chart.drawn .area { opacity: 1; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.reveal .chart .dot { fill: var(--bg); stroke: var(--fg); stroke-width: 4; opacity: 0; transition: opacity 0.4s; } .reveal .chart.drawn .dot { opacity: 1; transition-delay: calc(var(--d) * 1s); }
+.reveal .chart .cap { fill: var(--fg); font: 700 32px 'IBM Plex Sans Arabic'; opacity: 0; transition: opacity 0.5s; } .reveal .chart.drawn .cap { opacity: 1; transition-delay: calc(var(--d) * 1s); }
+.reveal .stat-big { font: 700 150px/1.05 'IBM Plex Sans Arabic'; color: var(--red); direction: ltr; text-align: right; letter-spacing: -0.04em; }
 
-/* ---------- slide: hook ---------- */
+/* ---------- objectives: two steps ---------- */
+.reveal .stairs { position: relative; flex: 1; }
+.reveal .stairs .stepbox { position: absolute; right: 0; border: 2px solid var(--fg); border-bottom: 0; background: var(--bg); padding: 24px 36px; display: flex; gap: 26px; align-items: flex-start; transition: background 0.4s, color 0.4s; }
+.reveal .stairs .s1 { bottom: 0; height: 240px; width: 1500px; } .reveal .stairs .s2 { bottom: 240px; height: 240px; width: 1080px; }
+.reveal .stairs .n { font: 700 100px/0.9 'IBM Plex Sans Arabic'; color: var(--red); flex: none; }
+.reveal .stairs .trophy { position: absolute; right: 1140px; bottom: 250px; font-size: 170px; line-height: 1; } .reveal .stairs .trophy svg.e { stroke-width: 1.8; }
+.reveal .stairs .climber { position: absolute; font-size: 80px; line-height: 1; color: var(--red); right: 1540px; bottom: 6px; transition: right 1.1s var(--ease), bottom 1.1s var(--ease); } .reveal .stairs .climber svg.e { fill: var(--red); }
+.reveal .stairs.at1 .climber { right: 1392px; bottom: 246px; } .reveal .stairs.at2 .climber { right: 960px; bottom: 486px; }
+.reveal .stairs .stepbox.lit { background: var(--fg); color: var(--bg); }
+
+/* ---------- the leaked chat ---------- */
+.reveal .chatwrap { flex: 1; display: flex; gap: 70px; min-height: 0; }
+.reveal .phone { width: 610px; flex: none; border: 3px solid var(--fg); border-radius: 44px; background: var(--soft); padding: 14px; display: flex; flex-direction: column; }
+.reveal .phone header { padding: 14px 20px; border-bottom: 2px solid var(--fg); display: flex; align-items: center; gap: 14px; font: 700 26px 'IBM Plex Sans Arabic'; }
+.reveal .phone header small { display: block; font: 400 16px 'IBM Plex Sans Arabic'; color: var(--red); }
+.reveal .av { width: 50px; height: 50px; display: grid; place-items: center; font: 700 24px 'Noto Kufi Arabic'; flex: none; } .reveal .av.s { background: var(--fg); color: var(--bg); } .reveal .av.n { background: var(--red); color: var(--paper); margin-inline-start: -8px; }
+.reveal .chat { flex: 1; overflow: hidden; padding: 16px 10px 8px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+.reveal .msg { max-width: 88%; padding: 10px 20px 12px; font: 400 24px/1.65 'IBM Plex Sans Arabic'; flex: none; }
+.reveal .msg.sara { border: 2px solid var(--fg); border-radius: 0 22px 22px 22px; align-self: flex-start; } .reveal .msg.noura { background: var(--fg); color: var(--bg); border-radius: 22px 0 22px 22px; align-self: flex-end; }
+.reveal .msg small { display: block; font: 600 15px 'IBM Plex Sans Arabic'; opacity: 0.6; }
+.reveal .msg.fragment:not(.visible) { display: none; } .reveal .msg.fragment.visible { animation: bubble 0.5s var(--ease) both; }
+@keyframes bubble { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+.reveal .msg mark { background: none; color: inherit; transition: box-shadow 0.6s, font-weight 0.3s; } .reveal .clues-on .msg mark { box-shadow: inset 0 -7px 0 var(--red); font-weight: 600; }
+.reveal .board { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.reveal .board .lens { font-size: 120px; line-height: 1; position: absolute; left: 150px; top: 250px; opacity: 0; pointer-events: none; color: var(--red); }
+.reveal .clues-on .board .lens { animation: sweep 2.2s ease-in-out both; }
+@keyframes sweep { 0% { opacity: 0; transform: translate(900px, 100px) rotate(-20deg); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(0, 300px) rotate(10deg); } }
+.reveal .clue { display: flex; gap: 22px; align-items: center; padding: 18px 0; border-top: 2px solid var(--fg); font: 600 30px/1.5 'IBM Plex Sans Arabic'; transform: translateX(-80px); opacity: 0; transition: transform 0.7s var(--ease), opacity 0.5s; transition-delay: calc(0.5s + var(--n) * 0.35s); }
+.reveal .board .clue:first-of-type { margin-top: 26px; }
+.reveal .clue .pin { font-size: 46px; line-height: 1; color: var(--red); } .reveal .clue small { display: block; font: 600 19px 'IBM Plex Sans Arabic'; color: var(--mut); }
+.reveal .clue .qm { margin-inline-start: auto; font: 900 54px/1 'Noto Kufi Arabic'; color: var(--red); } .reveal .clues-on .clue { transform: none; opacity: 1; }
+
+/* ---------- the detective quiz ---------- */
+.reveal .quiz { flex: 1; position: relative; }
+.reveal .quiz .q { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0 !important; pointer-events: none; transform: translateX(-60px) !important; transition: opacity 0.4s, transform 0.6s var(--ease) !important; }
+.reveal .quiz .q.current-fragment { opacity: 1 !important; transform: none !important; pointer-events: auto; }
+.reveal .quiz .q0 { opacity: 0; transition: opacity 0.4s; position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; } .reveal .quiz:not(:has(.q.visible)) .q0 { opacity: 1; }
+.reveal .quiz .q .clue { border-top: 0; padding: 0; font-size: 30px; opacity: 1; transform: none; } .reveal .quiz h3 { font-size: 46px !important; line-height: 1.5; }
+.reveal .quiz .opts { display: grid; grid-template-columns: 1fr; margin-top: 8px; }
+.reveal .quiz button { all: unset; cursor: pointer; padding: 17px 16px; border-top: 2px solid var(--fg); font: 600 36px/1.4 'IBM Plex Sans Arabic'; display: flex; gap: 22px; align-items: center; transition: background 0.25s, color 0.25s, opacity 0.3s; }
+.reveal .quiz button:last-child { border-bottom: 2px solid var(--fg); }
+.reveal .quiz button i { font: 700 36px 'IBM Plex Sans Arabic'; color: var(--mut); width: 56px; font-style: normal; flex: none; }
+.reveal .quiz button:hover { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.reveal .quiz button.wrong { animation: shake 0.45s; opacity: 0.35; text-decoration: line-through; }
+.reveal .quiz button.right { background: var(--fg); color: var(--bg); } .reveal .quiz button.right i { color: var(--red); }
+@keyframes shake { 20% { transform: translateX(-12px); } 40% { transform: translateX(12px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
+.reveal .quiz .stamp { position: absolute; left: 10px; top: 0; font: 900 40px 'Noto Kufi Arabic'; color: var(--red); border: 5px solid var(--red); padding: 2px 24px; transform: rotate(-8deg) scale(3); opacity: 0; transition: transform 0.35s cubic-bezier(0.5, 0, 0.3, 1.4), opacity 0.2s; background: var(--bg); }
+.reveal .quiz .q.solved .stamp { transform: rotate(-8deg); opacity: 1; }
+.reveal .score { display: flex; gap: 10px; font-size: 50px; } .reveal .score span { opacity: 0.2; transition: all 0.5s; } .reveal .score span.on { opacity: 1; color: var(--red); }
+.reveal .retry { all: unset; cursor: pointer; font: 600 23px 'IBM Plex Sans Arabic'; border: 2px solid var(--fg); padding: 6px 24px; }
+
+/* ---------- the courtroom ---------- */
+.reveal .court { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-content: center; }
+.reveal .exhibit { background: var(--soft); border: 2px solid var(--fg); padding: 22px 30px; font: 400 28px/1.7 'IBM Plex Sans Arabic'; transform: rotate(var(--r)); }
+.reveal .exhibit small { display: flex; gap: 12px; align-items: center; font: 700 23px 'IBM Plex Sans Arabic'; color: var(--red); margin-bottom: 6px; }
+.reveal .exhibit.fragment { transform: rotate(var(--r)) translateY(60px); } .reveal .exhibit.fragment.visible { transform: rotate(var(--r)); }
+.reveal .scales { display: inline-block; transform-origin: 50% 20%; animation: tip 3.2s ease-in-out infinite; } .reveal .scales svg.e { stroke-width: 1.6; }
+@keyframes tip { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+.reveal .roles { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+.reveal .role { text-align: center; padding: 30px 20px; border: 0; border-inline-start: 2px solid var(--fg); } .reveal .role:first-child { border: 0; }
+.reveal .role .e { font-size: 110px; color: var(--red); } .reveal .role b { color: var(--fg) !important; display: block; font: 700 40px/1.4 'Noto Kufi Arabic'; margin-top: 18px; } .reveal .role p { font: 400 25px/1.5 'IBM Plex Sans Arabic'; color: var(--mut); margin-top: 8px; }
+.reveal .scrollbox { background: var(--fg); color: var(--bg); padding: 34px 44px; font: 700 40px/1.7 'Noto Kufi Arabic'; min-height: 280px; display: grid; place-items: center; text-align: center; clip-path: inset(0 0 100% 0); transition: clip-path 1.1s var(--ease); width: 100%; }
+.reveal .scrollbox.visible { clip-path: inset(0); }
+
+/* ---------- closing activity: five fingers ---------- */
+.reveal .hand { flex: 1; display: flex; gap: 16px; align-items: flex-end; justify-content: center; }
+.reveal .finger { width: 250px; border: 2px solid var(--fg); border-bottom: 0; border-radius: 125px 125px 0 0; padding: 36px 18px 20px; text-align: center; height: calc(var(--h) - 60px); display: flex; flex-direction: column; gap: 10px; }
+.reveal .finger i { font: 700 60px/1 'IBM Plex Sans Arabic'; color: var(--red); font-style: normal; } .reveal .finger span { font: 600 27px/1.55 'IBM Plex Sans Arabic'; }
+.reveal .finger.fragment { transform: translateY(120px); } .reveal .finger.fragment.visible { transform: none; }
+
+/* ---------- summary: seven rights, filled in as they are named ---------- */
+.reveal .lamps { flex: 1; display: flex; align-items: center; }
+.reveal .lamp { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 10px; border-inline-start: 2px solid var(--fg); height: 430px; justify-content: center; } .reveal .lamp:first-child { border: 0; }
+.reveal .lamp .cord { display: none; }
+.reveal .lamp .body { width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--fg); display: grid; place-items: center; font-size: 74px; color: var(--mut); transition: background 0.6s, color 0.6s, border-color 0.6s, transform 0.6s var(--ease); }
+.reveal .lamp.on .body { background: var(--red); border-color: var(--red); color: var(--paper); transform: scale(1.08); }
+.reveal .lamp b { font: 700 25px/1.5 'Noto Kufi Arabic'; text-align: center; margin-top: 24px; color: var(--mut); transition: color 0.6s; min-height: 76px; } .reveal .lamp.on b { color: var(--fg); }
+
+/* ---------- small things ---------- */
+.reveal .gift { font-size: 250px; line-height: 1; display: inline-block; color: var(--red); animation: wiggle 1.4s ease-in-out infinite; } .reveal .gift svg.e { stroke-width: 1.6; }
+@keyframes wiggle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+.reveal .secret { position: absolute; top: 40px; right: 0; font: 900 44px 'Noto Kufi Arabic'; color: var(--red); border: 5px solid var(--red); padding: 0 24px; rotate: 10deg; }
+.reveal .motto { font: 900 56px/1.5 'Noto Kufi Arabic'; margin-top: 10px; }
+.reveal .bee { position: absolute; font-size: 96px; animation: bee 9s linear infinite; }
+@keyframes bee { 0% { transform: translate(0, 0) rotate(8deg); } 25% { transform: translate(-260px, -90px) rotate(-6deg); } 50% { transform: translate(-520px, 30px) rotate(8deg); } 75% { transform: translate(-260px, 110px) rotate(-6deg); } 100% { transform: translate(0, 0) rotate(8deg); } }
+.reveal .hex { display: grid; grid-template-columns: repeat(4, 150px); gap: 10px; direction: ltr; } .reveal .hex i { width: 150px; height: 130px; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: var(--red); opacity: 0.12; animation: honey 4s ease-in-out infinite; animation-delay: calc(var(--k) * 0.3s); }
+@keyframes honey { 0%, 100% { opacity: 0.12; } 50% { opacity: 1; } }
+.reveal .robot { font-size: 220px; line-height: 1; display: inline-block; animation: float 3.4s ease-in-out infinite; } .reveal .robot svg.e { stroke-width: 1.6; }
+.reveal .aicard { background: var(--soft); border: 2px solid var(--fg); border-inline-start: 10px solid var(--red); padding: 24px 34px; position: relative; }
+.reveal .aicard .aihead { font: 700 28px 'IBM Plex Sans Arabic'; color: var(--red); margin-bottom: 8px; } .reveal .aicard .aitext { font: 400 33px/1.75 'IBM Plex Sans Arabic'; }
+.reveal .aicard .x { position: absolute; left: -34px; top: -40px; font-size: 96px; color: var(--red); transform: scale(0); transition: transform 0.4s cubic-bezier(0.5, 0, 0.3, 1.6); } .reveal .aicard .x svg.e { stroke-width: 5; } .reveal .aicard.judged .x { transform: scale(1) rotate(-8deg); }
+.reveal .qr { border: 2px solid var(--fg); padding: 12px; width: 290px; background: #fff; } .reveal .qr img { width: 100%; display: block; }
+.reveal .dim { opacity: 0.6; }
+
+/* ---------- slide 4: the journey into the house (mechanics; colours follow) ---------- */
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 .reveal .hook { position: relative; }
 .reveal .hook .scene { position: absolute; inset: 0; overflow: hidden; }
 .reveal .hook .dune { position: absolute; bottom: -60px; inset-inline: -100px; height: 420px; background: #120e24; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
@@ -128,128 +235,9 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .hook .tag, .reveal .hook .ask { z-index: 3; position: relative; } .reveal .hook .ask { position: absolute; }
 .reveal .hook .words { position: absolute; top: 330px; inset-inline: 0; display: flex; justify-content: center; gap: 26px; }
 .reveal .hook .ask { position: absolute; top: 96px; inset-inline: 0; text-align: center; }
-
 .reveal .hook .trail { position: absolute; bottom: 150px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--gold2); box-shadow: 0 0 18px 6px rgba(243, 217, 160, 0.5); opacity: 0; }
 .reveal section.present.hook:not(.arrived) .trail { animation: trail 1.1s linear infinite; animation-delay: calc(var(--k) * 0.22s); }
 @keyframes trail { from { transform: translateY(-330px) scale(0.2); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(160px) scale(2.4); opacity: 0; } }
-
-/* ---------- slide: chart ---------- */
-.reveal .chart { position: relative; flex: 1; }
-.reveal .chart svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; direction: ltr; }
-.reveal .chart .axis { stroke: rgba(255, 255, 255, 0.2); stroke-width: 2; } .reveal .chart .grid { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1.5; }
-.reveal .chart text { fill: var(--muted); font: 500 22px 'Tajawal'; }
-.reveal .chart .line { fill: none; stroke: var(--gold); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.reveal .chart .area { fill: url(#fade); opacity: 0; transition: opacity 1s 2.4s; }
-.reveal .chart.drawn .line { animation: draw 2.8s ease-in-out forwards; } .reveal .chart.drawn .area { opacity: 1; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-.reveal .chart .dot { fill: var(--night); stroke: var(--gold2); stroke-width: 5; opacity: 0; transition: opacity 0.4s; }
-.reveal .chart.drawn .dot { opacity: 1; transition-delay: calc(var(--d) * 1s); }
-.reveal .chart .cap { fill: var(--cream); font: 700 34px 'Reem Kufi'; opacity: 0; transition: opacity 0.5s; } .reveal .chart.drawn .cap { opacity: 1; transition-delay: calc(var(--d) * 1s); }
-.reveal .stat-big { font: 700 150px/1 'Reem Kufi'; color: var(--coral); direction: ltr; }
-
-/* ---------- slide: stairs ---------- */
-.reveal .stairs { position: relative; flex: 1; }
-.reveal .stairs .stepbox { position: absolute; right: 0; border-radius: 26px 26px 0 0; background: linear-gradient(180deg, var(--plum2), var(--plum)); border: 1.5px solid rgba(227, 184, 102, 0.4); border-bottom: 0; padding: 26px 40px; display: flex; gap: 26px; align-items: flex-start; }
-.reveal .stairs .s1 { bottom: 0; height: 250px; width: 1500px; } .reveal .stairs .s2 { bottom: 250px; height: 250px; width: 1080px; }
-.reveal .stairs .n { font: 700 90px/1 'Reem Kufi'; color: var(--gold); flex: none; }
-.reveal .stairs .trophy { position: absolute; right: 1110px; bottom: 250px; font-size: 200px; line-height: 1; }
-.reveal .stairs .climber { position: absolute; font-size: 84px; line-height: 1; right: 1540px; bottom: 0; transition: right 1.1s var(--ease), bottom 1.1s var(--ease); }
-.reveal .stairs.at1 .climber { right: 1380px; bottom: 250px; } .reveal .stairs.at2 .climber { right: 940px; bottom: 500px; }
-.reveal .stairs .stepbox.lit { box-shadow: 0 0 60px rgba(227, 184, 102, 0.35); border-color: var(--gold); }
-
-/* ---------- slide: chat ---------- */
-.reveal .chatwrap { flex: 1; display: flex; gap: 60px; min-height: 0; }
-.reveal .phone { width: 600px; flex: none; border-radius: 56px; background: #0e0b1c; border: 3px solid rgba(227, 184, 102, 0.6); padding: 16px; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 0 80px rgba(110, 197, 192, 0.12); display: flex; flex-direction: column; }
-.reveal .phone header { padding: 16px 22px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 14px; font: 700 27px 'Tajawal'; }
-.reveal .phone header small { display: block; font: 500 17px 'Tajawal'; color: var(--coral); }
-.reveal .av { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font: 700 26px 'El Messiri'; flex: none; }
-.reveal .av.s { background: var(--plum2); color: var(--gold2); } .reveal .av.n { background: #2f6f6b; color: #d9f3f1; margin-inline-start: -22px; border: 3px solid #0e0b1c; }
-.reveal .chat { flex: 1; overflow: hidden; padding: 16px 12px 8px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-.reveal .msg { max-width: 88%; padding: 12px 20px 10px; border-radius: 24px; font: 500 24px/1.6 'Tajawal'; position: relative; flex: none; }
-.reveal .msg.sara { background: var(--plum2); border-bottom-right-radius: 6px; align-self: flex-start; }
-.reveal .msg.noura { background: #2f6f6b; border-bottom-left-radius: 6px; align-self: flex-end; }
-.reveal .msg small { display: block; font: 500 16px 'Tajawal'; color: var(--gold2); opacity: 0.85; }
-.reveal .msg.fragment:not(.visible) { display: none; }
-.reveal .msg.fragment.visible { animation: bubble 0.5s var(--ease) both; }
-@keyframes bubble { from { opacity: 0; transform: translateY(30px) scale(0.85); } to { opacity: 1; transform: none; } }
-.reveal .msg mark { background: transparent; color: inherit; border-radius: 6px; padding: 0 3px; transition: background 0.6s, color 0.6s, box-shadow 0.6s; }
-.reveal .clues-on .msg mark { background: rgba(227, 184, 102, 0.3); color: var(--gold2); box-shadow: inset 0 -4px 0 var(--gold); }
-.reveal .board { flex: 1; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-.reveal .board .lens { font-size: 120px; line-height: 1; position: absolute; left: 150px; top: 250px; opacity: 0; pointer-events: none; }
-.reveal .clues-on .board .lens { animation: sweep 2.2s ease-in-out both; }
-@keyframes sweep { 0% { opacity: 0; transform: translate(900px, 100px) rotate(-20deg); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(0, 300px) rotate(10deg); } }
-.reveal .clue { display: flex; gap: 22px; align-items: center; padding: 18px 28px; border-radius: 22px; background: rgba(246, 238, 221, 0.95); color: #2a2040; font: 700 28px/1.5 'Tajawal'; transform: rotate(var(--r, 0deg)) translateX(-80px); opacity: 0; transition: transform 0.7s var(--ease), opacity 0.5s; transition-delay: calc(0.5s + var(--n) * 0.35s); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35); }
-.reveal .clue .pin { font-size: 46px; line-height: 1; } .reveal .clue small { display: block; font: 700 19px 'Reem Kufi', 'Tajawal'; color: #8a5a2a; }
-.reveal .clue .qm { margin-inline-start: auto; font: 700 44px 'El Messiri'; color: var(--coral); }
-.reveal .clues-on .clue { transform: rotate(var(--r, 0deg)); opacity: 1; }
-
-/* ---------- slide: quiz ---------- */
-.reveal .quiz { flex: 1; position: relative; }
-.reveal .quiz .q { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; opacity: 0 !important; pointer-events: none; transform: translateX(-60px) !important; transition: opacity 0.4s, transform 0.6s var(--ease) !important; }
-.reveal .quiz .q.current-fragment, .reveal .quiz:not(:has(.q.visible)) .q0 { opacity: 1 !important; transform: none !important; pointer-events: auto; }
-.reveal .quiz .q0 { opacity: 0; transition: opacity 0.4s; position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; }
-.reveal .quiz .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.reveal .quiz button { all: unset; cursor: pointer; padding: 26px 32px; border-radius: 22px; background: rgba(91, 68, 116, 0.8); border: 2px solid rgba(227, 184, 102, 0.35); font: 700 34px/1.4 'Tajawal'; color: var(--cream); display: flex; gap: 18px; align-items: center; transition: all 0.3s; }
-.reveal .quiz button i { font: 700 26px 'Reem Kufi'; color: var(--gold); width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--gold); display: grid; place-items: center; flex: none; font-style: normal; }
-.reveal .quiz button:hover { border-color: var(--gold); transform: translateY(-3px); }
-.reveal .quiz button.wrong { animation: shake 0.45s; opacity: 0.4; border-color: var(--coral); }
-.reveal .quiz button.right { background: rgba(169, 197, 139, 0.3); border-color: var(--sage); box-shadow: 0 0 40px rgba(169, 197, 139, 0.35); }
-@keyframes shake { 20% { transform: translateX(-12px); } 40% { transform: translateX(12px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
-.reveal .quiz .stamp { position: absolute; left: 40px; top: 10px; font: 700 44px 'El Messiri'; color: var(--sage); border: 5px solid var(--sage); border-radius: 16px; padding: 4px 26px; transform: rotate(-9deg) scale(3); opacity: 0; transition: transform 0.35s cubic-bezier(0.5, 0, 0.3, 1.4), opacity 0.2s; }
-.reveal .quiz .q.solved .stamp { transform: rotate(-9deg); opacity: 1; }
-.reveal .score { display: flex; gap: 12px; font-size: 54px; } .reveal .score span { opacity: 0.22; filter: grayscale(1); transition: all 0.5s; } .reveal .score span.on { opacity: 1; filter: none; transform: scale(1.15); }
-.reveal .retry { all: unset; cursor: pointer; font: 700 24px 'Tajawal'; color: var(--gold); border: 2px solid var(--gold); border-radius: 999px; padding: 8px 26px; }
-
-/* ---------- slide: seven rights ---------- */
-.reveal .seven { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-content: center; }
-.reveal .seven .r7 { border-radius: 26px; padding: 26px 26px; background: rgba(58, 44, 94, 0.82); border: 2px solid var(--c); display: flex; gap: 20px; align-items: center; min-height: 236px; }
-.reveal .seven .r7 .num { font: 700 64px/1 'Reem Kufi'; color: var(--c); flex: none; } .reveal .seven .r7 b { font: 700 34px/1.4 'El Messiri'; display: block; color: var(--c); } .reveal .seven .r7 span { font: 500 22px/1.5 'Tajawal'; color: var(--cream); opacity: 0.85; }
-.reveal .seven .r7 .e { font-size: 62px; flex: none; }
-
-/* ---------- slide: court ---------- */
-.reveal .court { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-content: center; }
-.reveal .exhibit { background: rgba(246, 238, 221, 0.96); color: #2a2040; border-radius: 20px; padding: 24px 30px; font: 500 28px/1.65 'Tajawal'; transform: rotate(var(--r)); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4); position: relative; }
-.reveal .exhibit small { display: flex; gap: 12px; align-items: center; font: 700 24px 'Reem Kufi', 'Tajawal'; color: #8a5a2a; margin-bottom: 6px; }
-.reveal .exhibit.fragment { transform: rotate(var(--r)) translateY(60px) scale(0.9); } .reveal .exhibit.fragment.visible { transform: rotate(var(--r)); }
-.reveal .scales { font-size: 150px; line-height: 1; display: inline-block; transform-origin: 50% 20%; animation: tip 3.2s ease-in-out infinite; }
-@keyframes tip { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
-.reveal .roles { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; align-items: center; }
-.reveal .role { text-align: center; padding: 40px 20px; } .reveal .role .e { font-size: 110px; } .reveal .role b { display: block; font: 700 40px/1.3 'El Messiri'; margin-top: 16px; } .reveal .role p { font: 500 24px/1.5 'Tajawal'; color: var(--muted); margin-top: 8px; }
-
-/* ---------- slide: fingers ---------- */
-.reveal .hand { flex: 1; display: flex; gap: 18px; align-items: flex-end; justify-content: center; padding-bottom: 6px; }
-.reveal .finger { width: 250px; border-radius: 125px 125px 24px 24px; background: linear-gradient(180deg, var(--plum2), var(--plum)); border: 2px solid var(--c); padding: 34px 20px 24px; text-align: center; height: var(--h); display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; }
-.reveal .finger i { font: 700 56px/1 'Reem Kufi'; color: var(--c); font-style: normal; } .reveal .finger span { font: 700 27px/1.5 'Tajawal'; }
-.reveal .finger.fragment { transform: translateY(120px); } .reveal .finger.fragment.visible { transform: none; }
-
-/* ---------- slide: summary lanterns ---------- */
-.reveal .lamps { flex: 1; display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; }
-.reveal .lamp { width: 230px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: sway var(--p) ease-in-out infinite; }
-@keyframes sway { 0%, 100% { transform: rotate(-2.4deg); } 50% { transform: rotate(2.4deg); } }
-.reveal .lamp .cord { width: 3px; height: var(--len); background: var(--gold); opacity: 0.7; }
-.reveal .lamp .body { width: 176px; height: 250px; border-radius: 88px 88px 38px 38px; border: 4px solid var(--c); background: #231a40; display: grid; place-items: center; font-size: 88px; transition: box-shadow 1s, background 1s; position: relative; }
-.reveal .lamp .body .e { filter: grayscale(1) brightness(0.5); transition: filter 1s; }
-.reveal .lamp.on .body { background: color-mix(in srgb, var(--c) 30%, #231a40); box-shadow: 0 0 80px 10px color-mix(in srgb, var(--c) 55%, transparent); } .reveal .lamp.on .body .e { filter: none; }
-.reveal .lamp b { font: 700 27px/1.4 'El Messiri'; text-align: center; margin-top: 16px; color: var(--muted); transition: color 1s; } .reveal .lamp.on b { color: var(--c); }
-
-/* ---------- misc ---------- */
-.reveal .gift { font-size: 260px; line-height: 1; display: inline-block; animation: wiggle 1.4s ease-in-out infinite; }
-@keyframes wiggle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-.reveal .bee { position: absolute; font-size: 96px; animation: bee 9s linear infinite; }
-@keyframes bee { 0% { transform: translate(0, 0) rotate(8deg); } 25% { transform: translate(-260px, -90px) rotate(-6deg); } 50% { transform: translate(-520px, 30px) rotate(8deg); } 75% { transform: translate(-260px, 110px) rotate(-6deg); } 100% { transform: translate(0, 0) rotate(8deg); } }
-.reveal .hex { display: grid; grid-template-columns: repeat(4, 150px); gap: 10px; direction: ltr; } .reveal .hex i { width: 150px; height: 130px; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: var(--gold); opacity: 0.16; animation: honey 4s ease-in-out infinite; animation-delay: calc(var(--k) * 0.3s); }
-@keyframes honey { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.85; } }
-.reveal .robot { font-size: 230px; line-height: 1; display: inline-block; animation: float 3.4s ease-in-out infinite; }
-.reveal .aicard { background: #f6eedd; color: #2a2040; border-radius: 22px; padding: 26px 34px; border-inline-start: 10px solid var(--teal); box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4); position: relative; }
-.reveal .aicard .x { position: absolute; left: -26px; top: -26px; font-size: 80px; transform: scale(0); transition: transform 0.4s cubic-bezier(0.5, 0, 0.3, 1.6); } .reveal .aicard.judged .x { transform: scale(1) rotate(-10deg); }
-.reveal .qr { background: #fff; border-radius: 22px; padding: 14px; width: 300px; } .reveal .qr img { width: 100%; display: block; }
-.reveal .scrollbox { background: rgba(246, 238, 221, 0.96); color: #2a2040; border-radius: 22px; padding: 30px 40px; font: 700 40px/1.7 'El Messiri'; min-height: 300px; display: grid; place-items: center; text-align: center; clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease); width: 100%; }
-.reveal .scrollbox.visible { clip-path: inset(0); }
-.reveal .dim { opacity: 0.6; }
-
-.reveal .aicard .aihead { font: 700 30px 'Tajawal'; color: #1d5f5b; margin-bottom: 10px; } .reveal .aicard .aitext { font: 500 34px/1.75 'Tajawal'; }
-
-/* ---------- the hook: inside the house ---------- */
 .reveal .hook .scene { transform-origin: 848px 716px; transition: transform 1.9s cubic-bezier(0.6, 0, 0.25, 1), opacity 0.9s 0.2s; }
 .reveal .hook.inside .scene { transform: scale(11); opacity: 0; transition: transform 1.9s cubic-bezier(0.6, 0, 0.25, 1), opacity 0.8s 0.9s; }
 .reveal .hook.inside .trail { display: none; }
@@ -261,7 +249,7 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .hook[data-sc='2'] .room { transform: scale(1.02); }
 .reveal .hook[data-sc='3'] .room { transform: scale(1.22); transform-origin: 42% 80%; }
 .reveal .hook[data-sc='4'] .room { transform: scale(2); transform-origin: 50% 97%; }
-.reveal .hook[data-sc='5'] .room { transform: scale(1.9); transform-origin: 50% 40%; }
+.reveal .hook[data-sc='5'] .room { transform: scale(1.9); transform-origin: 50% 34%; }
 .reveal .hook[data-sc='6'] .room { transform: scale(1.3); transform-origin: 12% 62%; }
 .reveal .hook[data-sc='7'] .room { transform: scale(1.12); transform-origin: 62% 92%; }
 /* Only shapes that scale or turn about their own box opt in; everything else keeps SVG's own origin. */
@@ -273,7 +261,6 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 @keyframes flick { from { transform: scale(0.96, 0.94) skewX(-2deg); } to { transform: scale(1.04, 1.06) skewX(3deg); } }
 .reveal .hook .halo { transform-origin: center; animation: breathe 3.2s ease-in-out infinite; }
 .reveal .hook .cushions { animation: breathe 7s ease-in-out infinite; }
-
 /* scene 3, working together: the mill turns and the jar fills, in one rhythm */
 .reveal .hook .millspin { transform-box: view-box; transform-origin: 0 0; }
 .reveal .hook[data-sc='3'] .millspin { animation: spin 2.4s linear infinite; }
@@ -287,15 +274,12 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 @keyframes ripple { 0% { opacity: 0.9; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.5); } }
 .reveal .hook[data-sc='3'] .rhythm { opacity: 0.8; animation: march 1.2s linear infinite; }
 @keyframes march { to { stroke-dashoffset: -24; } }
-
 /* scene 4, each puts the other first: the tray is offered one way, then back, then the bread is shared */
 .reveal .hook[data-sc='4'] .tray { animation: offer 7s ease-in-out infinite; }
 @keyframes offer { 0%, 8% { transform: none; } 24%, 32% { transform: translateX(110px); } 50%, 58% { transform: translateX(-110px); } 72%, 100% { transform: none; } }
 .reveal .hook[data-sc='4'] .hl { animation: halfl 7s ease-in-out infinite; } .reveal .hook[data-sc='4'] .hr { animation: halfr 7s ease-in-out infinite; }
 @keyframes halfl { 0%, 74% { transform: none; } 86%, 100% { transform: translateX(-170px); } }
 @keyframes halfr { 0%, 74% { transform: none; } 86%, 100% { transform: translateX(170px); } }
-
-
 /* scene 5, sharing sorrow: one flame sinks, the other leans over and lights it again */
 .reveal .hook[data-sc='5'] .la .flame { animation: sink 8s ease-in-out infinite; }
 @keyframes sink { 0%, 10% { transform: none; } 24%, 50% { transform: scale(0.22, 0.16); } 62% { transform: scale(1.2, 1.25); } 72%, 100% { transform: none; } }
@@ -310,7 +294,6 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 @keyframes spark { 0%, 42% { opacity: 0; transform: none; } 46% { opacity: 1; transform: translate(-30px, -16px); } 56% { opacity: 1; transform: translate(-180px, -22px); } 60%, 100% { opacity: 0; transform: translate(-200px, -6px); } }
 .reveal .hook[data-sc='5'] .glow { animation: dimroom 8s ease-in-out infinite; }
 @keyframes dimroom { 0%, 10% { opacity: 0.95; } 24%, 50% { opacity: 0.5; } 70%, 100% { opacity: 1; } }
-
 /* scene 6, keeping secrets: the door closes, and what is said stays inside */
 .reveal .hook .leaf { transform-origin: 0 50%; transform: scaleX(0.1); transition: transform 1.5s cubic-bezier(0.5, 0, 0.2, 1) 1.2s; }
 .reveal .hook .latch { transform: translateX(46px); opacity: 0; transition: transform 0.5s 2.7s var(--ease), opacity 0.3s 2.6s; }
@@ -321,7 +304,6 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 @keyframes w1 { 0% { opacity: 0; transform: translate(760px, 640px) scale(0.5); } 12% { opacity: 0.95; } 45% { transform: translate(440px, 560px) scale(1); } 52% { transform: translate(456px, 556px) scale(0.92, 1.08); } 88% { opacity: 0.95; } 100% { opacity: 0; transform: translate(700px, 500px) scale(0.8); } }
 @keyframes w2 { 0% { opacity: 0; transform: translate(800px, 700px) scale(0.5); } 12% { opacity: 0.9; } 45% { transform: translate(450px, 690px) scale(1); } 52% { transform: translate(466px, 686px) scale(0.92, 1.08); } 88% { opacity: 0.9; } 100% { opacity: 0; transform: translate(720px, 760px) scale(0.8); } }
 @keyframes w3 { 0% { opacity: 0; transform: translate(700px, 560px) scale(0.5); } 12% { opacity: 0.9; } 45% { transform: translate(430px, 450px) scale(1); } 52% { transform: translate(446px, 452px) scale(0.92, 1.08); } 88% { opacity: 0.9; } 100% { opacity: 0; transform: translate(640px, 400px) scale(0.8); } }
-
 /* scene 7, helping each other worship: dawn comes in and two mats unroll side by side */
 .reveal .hook .dawnsky, .reveal .hook .beam { opacity: 0; transition: opacity 2.4s 0.8s; }
 .reveal .hook .night { transition: opacity 2s 0.8s; }
@@ -333,5 +315,28 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .hook .motes { fill: #f6e3b8; opacity: 0; transition: opacity 2s 1.5s; } .reveal .hook[data-sc='7'] .motes { opacity: 0.8; }
 .reveal .hook[data-sc='7'] .motes circle { animation: mote 7s ease-in-out infinite alternate; } .reveal .hook[data-sc='7'] .motes circle:nth-child(2n) { animation-duration: 9s; animation-direction: alternate-reverse; }
 @keyframes mote { from { transform: translate(-16px, 20px); } to { transform: translate(22px, -34px); } }
+/* the hook, in paper and ink */
+.reveal .hook { position: relative; }
+.reveal .hook .scene { position: absolute; inset: 0; overflow: hidden; }
+.reveal .hook .dune { background: var(--ink); } .reveal .hook .dune.b { background: #3a342c; }
+.reveal .hook .house .wall { background: var(--paper); border: 4px solid var(--ink); border-radius: 0; } .reveal .hook .house .roof { background: var(--ink); border-radius: 0; height: 30px; top: 40px; }
+.reveal .hook .house .win { background: var(--red); box-shadow: none; border: 4px solid var(--ink); } .reveal .hook .house .door2 { background: var(--ink); border: 0; }
+.reveal .hook[data-sc='8'] .win { box-shadow: 0 0 0 26px rgba(216, 67, 42, 0.25), 0 0 0 60px rgba(216, 67, 42, 0.12); }
+.reveal .hook .palm { color: var(--ink); font-size: 250px; bottom: 262px; opacity: 1; } .reveal .hook .palm svg.e { stroke-width: 2; }
+.reveal .hook .years b { font: 700 220px/1 'IBM Plex Sans Arabic'; color: var(--red); letter-spacing: -0.04em; }
+.reveal .hook .trail { background: var(--red); box-shadow: none; }
+.reveal .hook .cap h3 { font: 900 76px/1.3 'Noto Kufi Arabic'; text-shadow: none; } .reveal .hook .cap h2 { font-size: 80px; } .reveal .hook .cap .lead { font-size: 38px; text-shadow: none; font-weight: 600; }
+.reveal .hook .motes { fill: var(--ink); }
+.reveal .hook .ask h2 { font-size: 92px; }
+.reveal .slides > section.hook::before, .reveal .slides > section.hook::after { display: none; }
+.reveal .hook.inside .tag { visibility: hidden; }
+/* scene captions sit on their own slip of paper, so they read over anything in the room */
+.reveal .hook .cap { top: 54px; inset-inline: auto; left: 50%; translate: -50% 0; width: max-content; max-width: 1500px; background: var(--paper); border: 2px solid var(--ink); padding: 14px 54px 20px; }
+.reveal .hook .cap.names { border: 0; background: none; top: 96px; }
+.reveal .hook .cap h3 { font-size: 64px; } .reveal .hook .cap .lead { font-size: 33px; line-height: 1.6; }
 
-.reveal .tally { position: absolute; left: 60px; bottom: 44px; padding: 12px 30px; border-radius: 16px; border: 2px dashed var(--gold); background: rgba(26, 21, 48, 0.9); font: 700 28px 'Tajawal'; color: var(--gold2); }
+/* every card and chip inside a card is plain ink, whatever the old markup asks for */
+.reveal .card[style*='border-color'] { border-color: var(--fg) !important; }
+.reveal .card > .chip { background: var(--fg) !important; border-color: var(--fg); color: var(--bg) !important; margin-bottom: 6px; }
+.reveal #stat h2 { font-size: 70px; }
+.reveal .quiz .stamp { top: -14px; }

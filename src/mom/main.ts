@@ -1,34 +1,28 @@
 import '@fontsource/amiri/arabic-400.css';
 import '@fontsource/amiri/arabic-700.css';
-import '@fontsource/el-messiri/arabic-700.css';
-import '@fontsource/el-messiri/latin-700.css';
-import '@fontsource/reem-kufi/arabic-700.css';
-import '@fontsource/reem-kufi/latin-700.css';
-import '@fontsource/tajawal/arabic-500.css';
-import '@fontsource/tajawal/arabic-700.css';
-import '@fontsource/tajawal/latin-500.css';
-import '@fontsource/tajawal/latin-700.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-600.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-700.css';
+import '@fontsource/ibm-plex-sans-arabic/latin-400.css';
+import '@fontsource/ibm-plex-sans-arabic/latin-600.css';
+import '@fontsource/ibm-plex-sans-arabic/latin-700.css';
+import '@fontsource/noto-kufi-arabic/arabic-700.css';
+import '@fontsource/noto-kufi-arabic/arabic-900.css';
 import Reveal from 'reveal.js';
 import 'reveal.js/reveal.css';
-import { createBackground, type Mood } from './bg';
+import { drawIcons, ICONS } from './icons';
 import './mom.css';
 
-// الحقوق المشتركة بين الزوجين: reveal.js slides over a live background.
+// الحقوق المشتركة بين الزوجين: reveal.js slides in the Paper & Ink style.
 //   bun run dev     live preview
 //   bun run build   one file + assets in deck/
 // Keys: → next, ← back, T starts or pauses the timer on a slide, 1–4 answer a quiz question, F full screen.
-// Option: ?scale=0.5 draws the background at half size on slow machines.
 
 const $ = <T extends HTMLElement>(sel: string, root: ParentNode = document) => root.querySelector<T>(sel)!;
 const $$ = <T extends HTMLElement>(sel: string, root: ParentNode = document) => [...root.querySelectorAll<T>(sel)];
 
-for (const el of $$('i[data-e]')) {
-  const img = document.createElement('img');
-  img.className = 'e';
-  img.alt = '';
-  img.src = `assets/emoji/${el.dataset.e}.png`;
-  el.replaceWith(img);
-}
+drawIcons();
+const icon = (name: string) => `<svg class="e" viewBox="0 0 48 48" aria-hidden="true">${ICONS[name]}</svg>`;
 
 // ---------------------------------------------------------------- the quiz
 const RIGHTS = ['حفظ الأسرار الزوجية', 'الإمساك بالمعروف والتسريح بإحسان', 'المشاركة الوجدانية', 'الإحصان'];
@@ -43,7 +37,7 @@ QUESTIONS.forEach((item, n) => {
   const el = document.createElement('div');
   el.className = 'q fragment';
   el.innerHTML =
-    `<div class="clue" style="opacity:1;transform:rotate(-0.6deg);width:fit-content;transition:none"><span class="pin"><img class="e" alt="" src="assets/emoji/round_pushpin.png"></span><span><small>القرينة</small>${item.clue}</span></div>` +
+    `<div class="clue" style="opacity:1;transform:rotate(-0.6deg);width:fit-content;transition:none"><span class="pin">${icon('round_pushpin')}</span><span><small>القرينة</small>${item.clue}</span></div>` +
     `<h3 style="font-size:50px">${n + 1}. ${item.q}</h3><div class="opts">` +
     RIGHTS.map((r, k) => `<button data-k="${k}"><i>${k + 1}</i>${r}</button>`).join('') +
     `</div><span class="stamp">حقٌّ مفقود ✓</span>`;
@@ -88,7 +82,7 @@ const CASES: [number, number][] = [
     return `<circle class="dot" style="--d:${d}" cx="${X(y)}" cy="${Y(v)}" r="11"/><text class="cap" style="--d:${d}" x="${X(y)}" y="${Y(v) - 24}" text-anchor="middle">${v.toLocaleString('en')}</text>`;
   }).join('');
   $('#chart').innerHTML =
-    `<svg viewBox="0 0 ${w} ${h}"><defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3b866" stop-opacity="0.32"/><stop offset="1" stop-color="#e3b866" stop-opacity="0"/></linearGradient></defs>` +
+    `<svg viewBox="0 0 ${w} ${h}"><defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8432a" stop-opacity="0.22"/><stop offset="1" stop-color="#d8432a" stop-opacity="0"/></linearGradient></defs>` +
     `${grid}<line class="axis" x1="${l}" x2="${w - r}" y1="${h - b}" y2="${h - b}"/>${years}` +
     `<path class="area" d="M${pts[0]} L${pts.join(' L')} L${X(2021)},${h - b} L${X(2001)},${h - b} Z"/><path class="line" pathLength="1" d="M${pts.join(' L')}"/>${marks}</svg>`;
   $('#drawchart').dataset.fragmentIndex = '0';
@@ -151,7 +145,7 @@ function refresh() {
   $('#aicard').classList.toggle('judged', shown('[data-judge]') > 0);
   const lit = Math.max(0, ...$$('[data-lamps].visible').map((e) => +e.dataset.lamps!));
   const order = [0, 1, 2, 5, 3, 4, 6]; // the four studied in the activity light first
-  $$('.lamp').forEach((l, i) => {
+  $$('#lamps .lamp').forEach((l, i) => {
     l.classList.toggle('on', order.indexOf(i) < lit);
     l.style.transitionDelay = `${order.indexOf(i) * 0.12}s`;
   });
@@ -198,10 +192,11 @@ function travel(on: boolean) {
 }
 
 // ------------------------------------------------------------------ deck
-await Promise.all(['700 64px "El Messiri"', '500 32px Tajawal', '700 32px Tajawal', '700 32px Amiri', '700 32px "Reem Kufi"'].map((f) => document.fonts.load(f, 'الحقوق 201')));
-const params = new URLSearchParams(location.search);
-const bg = createBackground($<HTMLCanvasElement>('#stage'), parseFloat(params.get('scale') ?? '1'));
+await Promise.all(['900 64px "Noto Kufi Arabic"', '700 64px "Noto Kufi Arabic"', '400 32px "IBM Plex Sans Arabic"', '600 32px "IBM Plex Sans Arabic"', '700 32px "IBM Plex Sans Arabic"', '700 32px Amiri'].map((f) => document.fonts.load(f, 'الحقوق 201')));
+const WIPE = 0.7; // seconds for the red sheet to cross; the slide changes underneath at its midpoint
+const wipe = $('#wipe');
 const sections = $$('.reveal .slides > section');
+sections.forEach((s, i) => (s.dataset.n = `${String(i + 1).padStart(2, '0')} / ${sections.length}`));
 
 const reveal = new Reveal({
   width: 1920,
@@ -221,15 +216,19 @@ const reveal = new Reveal({
   keyboard: { 84: () => { const tm = timers.find((x) => x.el.closest('section')!.classList.contains('present')); if (tm) toggle(tm); } },
 });
 let hideText = 0;
-function arrive(wipe: boolean) {
+function arrive(animate: boolean) {
   const s = sections[reveal.getIndices().h];
-  const [fx, fy] = (s.dataset.focus ?? '0,0').split(',').map(Number);
-  bg.goto((s.dataset.mood ?? 'calm') as Mood, fx, fy);
-  if (wipe) {
+  if (animate) {
+    wipe.classList.remove('go');
+    void wipe.offsetWidth; // restart the sweep
+    wipe.classList.add('go');
     document.body.classList.add('wiping');
     clearTimeout(hideText);
-    hideText = window.setTimeout(() => document.body.classList.remove('wiping'), bg.half * 1000);
-  }
+    hideText = window.setTimeout(() => {
+      document.body.classList.remove('wiping');
+      document.body.classList.toggle('inv', s.classList.contains('inv'));
+    }, (WIPE / 2) * 1000);
+  } else document.body.classList.toggle('inv', s.classList.contains('inv'));
   for (const tm of timers) if (!tm.el.closest('section')!.classList.contains('present')) stop(tm, true);
   travel(s.id === 'hook');
   refresh();
@@ -239,5 +238,4 @@ reveal.on('fragmentshown', refresh);
 reveal.on('fragmenthidden', refresh);
 await reveal.initialize();
 arrive(false);
-bg.start();
 (window as unknown as { __deck: unknown }).__deck = { ready: true, reveal };
