@@ -63,6 +63,10 @@ bun run test       # steps through every slide in headless Chrome; needs a fresh
 - `main.ts` recomputes every slide's state from which fragments are visible (`refresh()`), so going backwards works. Follow that pattern; don't store state in variables.
 - Quiz questions and answers are the `QUESTIONS` array in `main.ts`. Chart numbers are the `CASES` array.
 
+### Slide 4, the journey into the house
+
+The hook slide is a motion graphic: the centuries count back, the camera pushes through the lit window, and six scenes inside the home play one per press of → (stillness, working together, putting the other first, comfort, keeping secrets, dawn prayer). The room is one inline SVG in `index.html` (`.roomwrap`), animated by CSS in the last section of `mom.css`; `main.ts` sets `data-sc` on the slide to the number of visible fragments and the CSS keys every scene off that. **No people are shown, ever: the objects tell the story.** Check any new shape does not read as a figure. `bun scripts/hookshots.ts "$PWD/deck/index.html" <out-dir>` screenshots each scene at several moments.
+
 ### Rules for this content. Please keep them.
 
 1. **Qur'an verses and hadith are never to be written from memory or "corrected".** They were typed from the school textbook (pp. 69–74) with their references. If one needs changing, ask the user for the exact text and source, and remind them it must be proofread.
@@ -79,4 +83,4 @@ Run `bun run build` then `bun run test`. The test prints one JSON line; `problem
 ## Things that are not finished
 
 - No AI illustrations were generated (the API key supplied at the time was invalid). `tools/gen_ai_assets.py` holds the prompts; it needs `OPENAI_API_KEY` in the environment or in a git-ignored `.env`. **Never commit a key.**
-- Text written by the assistant, not the teacher, and still awaiting her review: the four value words on slide 4, the scenario on slide 21, the flawed AI answer on slide 22, the five finger questions on slide 26, and the one-line meaning under each right on slide 11.
+- Text written by the assistant, not the teacher, and still awaiting her review: the scene captions inside the house on slide 4 (تعاون، إيثار، مواساة، سِتر، عون على الطاعة), the scenario on slide 21, the flawed AI answer on slide 22, the five finger questions on slide 26, and the one-line meaning under each right on slide 11.

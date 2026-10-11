@@ -122,10 +122,13 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .hook .years { position: absolute; top: 150px; inset-inline: 0; text-align: center; transition: opacity 0.8s; }
 .reveal .hook .years b { font: 700 170px/1 'Reem Kufi'; color: var(--gold); display: block; direction: ltr; }
 .reveal .hook.arrived .years { opacity: 0; }
-.reveal .hook .names { position: absolute; top: 110px; inset-inline: 0; text-align: center; }
+.reveal .hook .cap { position: absolute; top: 96px; inset-inline: 0; text-align: center; z-index: 3; opacity: 0 !important; transform: translateY(18px) !important; transition: opacity 0.6s ease, transform 0.8s var(--ease) !important; pointer-events: none; }
+.reveal .hook .cap.current-fragment { opacity: 1 !important; transform: none !important; transition-delay: 0.5s !important; }
+.reveal .hook .cap h3 { font-size: 76px; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); } .reveal .hook .cap .lead { font-size: 40px; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8); }
+.reveal .hook .tag, .reveal .hook .ask { z-index: 3; position: relative; } .reveal .hook .ask { position: absolute; }
 .reveal .hook .words { position: absolute; top: 330px; inset-inline: 0; display: flex; justify-content: center; gap: 26px; }
 .reveal .hook .ask { position: absolute; top: 96px; inset-inline: 0; text-align: center; }
-.reveal .hook:has(.f-ask.visible) .names, .reveal .hook:has(.f-ask.visible) .words { opacity: 0.0; transition: opacity 0.5s; }
+
 .reveal .hook .trail { position: absolute; bottom: 150px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--gold2); box-shadow: 0 0 18px 6px rgba(243, 217, 160, 0.5); opacity: 0; }
 .reveal section.present.hook:not(.arrived) .trail { animation: trail 1.1s linear infinite; animation-delay: calc(var(--k) * 0.22s); }
 @keyframes trail { from { transform: translateY(-330px) scale(0.2); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(160px) scale(2.4); opacity: 0; } }
@@ -245,3 +248,88 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .dim { opacity: 0.6; }
 
 .reveal .aicard .aihead { font: 700 30px 'Tajawal'; color: #1d5f5b; margin-bottom: 10px; } .reveal .aicard .aitext { font: 500 34px/1.75 'Tajawal'; }
+
+/* ---------- the hook: inside the house ---------- */
+.reveal .hook .scene { transform-origin: 848px 716px; transition: transform 1.9s cubic-bezier(0.6, 0, 0.25, 1), opacity 0.9s 0.2s; }
+.reveal .hook.inside .scene { transform: scale(11); opacity: 0; transition: transform 1.9s cubic-bezier(0.6, 0, 0.25, 1), opacity 0.8s 0.9s; }
+.reveal .hook.inside .trail { display: none; }
+.reveal .hook[data-sc='8'] .win { box-shadow: 0 0 150px 70px rgba(243, 217, 160, 0.55); }
+.reveal .hook .roomwrap { position: absolute; inset: 0; overflow: hidden; opacity: 0; transition: opacity 1s; pointer-events: none; }
+.reveal .hook.inside .roomwrap { opacity: 1; transition: opacity 1.1s 0.9s; }
+.reveal .hook .room { width: 100%; height: 100%; display: block; direction: ltr; transform: scale(1.3); transform-origin: 50% 60%; transition: transform 2.4s cubic-bezier(0.4, 0, 0.2, 1); }
+/* the camera eases toward whatever each scene is about */
+.reveal .hook[data-sc='2'] .room { transform: scale(1.02); }
+.reveal .hook[data-sc='3'] .room { transform: scale(1.22); transform-origin: 42% 80%; }
+.reveal .hook[data-sc='4'] .room { transform: scale(2); transform-origin: 50% 97%; }
+.reveal .hook[data-sc='5'] .room { transform: scale(1.9); transform-origin: 50% 40%; }
+.reveal .hook[data-sc='6'] .room { transform: scale(1.3); transform-origin: 12% 62%; }
+.reveal .hook[data-sc='7'] .room { transform: scale(1.12); transform-origin: 62% 92%; }
+/* Only shapes that scale or turn about their own box opt in; everything else keeps SVG's own origin. */
+.reveal .hook .flame, .reveal .hook .halo, .reveal .hook .leaf, .reveal .hook .mat, .reveal .hook .ripple { transform-box: fill-box; }
+.reveal .hook .glow { animation: breathe 6s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: 0.86; } 50% { opacity: 1; } }
+.reveal .hook .flame { transform-origin: 50% 100%; animation: flick 0.9s ease-in-out infinite alternate; }
+.reveal .hook .lb .flame { animation-duration: 1.15s; }
+@keyframes flick { from { transform: scale(0.96, 0.94) skewX(-2deg); } to { transform: scale(1.04, 1.06) skewX(3deg); } }
+.reveal .hook .halo { transform-origin: center; animation: breathe 3.2s ease-in-out infinite; }
+.reveal .hook .cushions { animation: breathe 7s ease-in-out infinite; }
+
+/* scene 3, working together: the mill turns and the jar fills, in one rhythm */
+.reveal .hook .millspin { transform-box: view-box; transform-origin: 0 0; }
+.reveal .hook[data-sc='3'] .millspin { animation: spin 2.4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.reveal .hook .flour, .reveal .hook .drop, .reveal .hook .ripple, .reveal .hook .rhythm { opacity: 0; }
+.reveal .hook[data-sc='3'] .flour { animation: flour 1.2s ease-in infinite; } .reveal .hook[data-sc='3'] .f2 { animation-delay: 0.4s; } .reveal .hook[data-sc='3'] .f3 { animation-delay: 0.8s; }
+@keyframes flour { 0% { opacity: 0; transform: translateY(-20px); } 30% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(46px); } }
+.reveal .hook[data-sc='3'] .drop { animation: drip 1.2s ease-in infinite; } .reveal .hook[data-sc='3'] .d2 { animation-delay: 0.6s; }
+@keyframes drip { 0% { opacity: 0; transform: none; } 18% { opacity: 1; transform: none; } 90% { opacity: 1; transform: translateY(172px); } 100% { opacity: 0; transform: translateY(180px); } }
+.reveal .hook[data-sc='3'] .ripple { transform-origin: center; animation: ripple 1.2s ease-out infinite; }
+@keyframes ripple { 0% { opacity: 0.9; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.5); } }
+.reveal .hook[data-sc='3'] .rhythm { opacity: 0.8; animation: march 1.2s linear infinite; }
+@keyframes march { to { stroke-dashoffset: -24; } }
+
+/* scene 4, each puts the other first: the tray is offered one way, then back, then the bread is shared */
+.reveal .hook[data-sc='4'] .tray { animation: offer 7s ease-in-out infinite; }
+@keyframes offer { 0%, 8% { transform: none; } 24%, 32% { transform: translateX(110px); } 50%, 58% { transform: translateX(-110px); } 72%, 100% { transform: none; } }
+.reveal .hook[data-sc='4'] .hl { animation: halfl 7s ease-in-out infinite; } .reveal .hook[data-sc='4'] .hr { animation: halfr 7s ease-in-out infinite; }
+@keyframes halfl { 0%, 74% { transform: none; } 86%, 100% { transform: translateX(-170px); } }
+@keyframes halfr { 0%, 74% { transform: none; } 86%, 100% { transform: translateX(170px); } }
+
+
+/* scene 5, sharing sorrow: one flame sinks, the other leans over and lights it again */
+.reveal .hook[data-sc='5'] .la .flame { animation: sink 8s ease-in-out infinite; }
+@keyframes sink { 0%, 10% { transform: none; } 24%, 50% { transform: scale(0.22, 0.16); } 62% { transform: scale(1.2, 1.25); } 72%, 100% { transform: none; } }
+.reveal .hook[data-sc='5'] .la .halo { animation: sinkhalo 8s ease-in-out infinite; }
+@keyframes sinkhalo { 0%, 10% { opacity: 1; transform: none; } 24%, 50% { opacity: 0.08; transform: scale(0.6); } 66% { opacity: 1; transform: scale(1.2); } 78%, 100% { opacity: 1; transform: scale(1.22); } }
+.reveal .hook[data-sc='5'] .lb .flame { animation: lean 8s ease-in-out infinite; }
+@keyframes lean { 0%, 28% { transform: none; } 40%, 54% { transform: skewX(30deg) scale(1.1, 1.05); } 66%, 100% { transform: none; } }
+.reveal .hook[data-sc='5'] .lb .halo { animation: share 8s ease-in-out infinite; }
+@keyframes share { 0%, 60% { transform: none; } 78%, 100% { transform: scale(1.22); } }
+.reveal .hook .spark { opacity: 0; }
+.reveal .hook[data-sc='5'] .spark { animation: spark 8s ease-in-out infinite; }
+@keyframes spark { 0%, 42% { opacity: 0; transform: none; } 46% { opacity: 1; transform: translate(-30px, -16px); } 56% { opacity: 1; transform: translate(-180px, -22px); } 60%, 100% { opacity: 0; transform: translate(-200px, -6px); } }
+.reveal .hook[data-sc='5'] .glow { animation: dimroom 8s ease-in-out infinite; }
+@keyframes dimroom { 0%, 10% { opacity: 0.95; } 24%, 50% { opacity: 0.5; } 70%, 100% { opacity: 1; } }
+
+/* scene 6, keeping secrets: the door closes, and what is said stays inside */
+.reveal .hook .leaf { transform-origin: 0 50%; transform: scaleX(0.1); transition: transform 1.5s cubic-bezier(0.5, 0, 0.2, 1) 1.2s; }
+.reveal .hook .latch { transform: translateX(46px); opacity: 0; transition: transform 0.5s 2.7s var(--ease), opacity 0.3s 2.6s; }
+.reveal .hook[data-sc='6'] .leaf, .reveal .hook[data-sc='7'] .leaf { transform: none; }
+.reveal .hook[data-sc='6'] .latch, .reveal .hook[data-sc='7'] .latch { transform: none; opacity: 1; }
+.reveal .hook .whisper { opacity: 0; }
+.reveal .hook[data-sc='6'] .w1 { animation: w1 6s ease-in-out 2.8s infinite; } .reveal .hook[data-sc='6'] .w2 { animation: w2 6s ease-in-out 3.6s infinite; } .reveal .hook[data-sc='6'] .w3 { animation: w3 6s ease-in-out 4.6s infinite; }
+@keyframes w1 { 0% { opacity: 0; transform: translate(760px, 640px) scale(0.5); } 12% { opacity: 0.95; } 45% { transform: translate(440px, 560px) scale(1); } 52% { transform: translate(456px, 556px) scale(0.92, 1.08); } 88% { opacity: 0.95; } 100% { opacity: 0; transform: translate(700px, 500px) scale(0.8); } }
+@keyframes w2 { 0% { opacity: 0; transform: translate(800px, 700px) scale(0.5); } 12% { opacity: 0.9; } 45% { transform: translate(450px, 690px) scale(1); } 52% { transform: translate(466px, 686px) scale(0.92, 1.08); } 88% { opacity: 0.9; } 100% { opacity: 0; transform: translate(720px, 760px) scale(0.8); } }
+@keyframes w3 { 0% { opacity: 0; transform: translate(700px, 560px) scale(0.5); } 12% { opacity: 0.9; } 45% { transform: translate(430px, 450px) scale(1); } 52% { transform: translate(446px, 452px) scale(0.92, 1.08); } 88% { opacity: 0.9; } 100% { opacity: 0; transform: translate(640px, 400px) scale(0.8); } }
+
+/* scene 7, helping each other worship: dawn comes in and two mats unroll side by side */
+.reveal .hook .dawnsky, .reveal .hook .beam { opacity: 0; transition: opacity 2.4s 0.8s; }
+.reveal .hook .night { transition: opacity 2s 0.8s; }
+.reveal .hook[data-sc='7'] .dawnsky { opacity: 1; } .reveal .hook[data-sc='7'] .beam { opacity: 1; } .reveal .hook[data-sc='7'] .night { opacity: 0; }
+.reveal .hook .mat { transform-origin: 50% 0; transform: scaleY(0); opacity: 0; transition: transform 1.6s var(--ease) 2s, opacity 0.4s 2s; }
+.reveal .hook .m2 { transition-delay: 2.5s, 2.5s; }
+.reveal .hook[data-sc='7'] .mat { transform: none; opacity: 1; }
+.reveal .hook .tray, .reveal .hook .cup { transition: opacity 0.8s; } .reveal .hook[data-sc='7'] .tray, .reveal .hook[data-sc='7'] .cup { opacity: 0; }
+.reveal .hook .motes { fill: #f6e3b8; opacity: 0; transition: opacity 2s 1.5s; } .reveal .hook[data-sc='7'] .motes { opacity: 0.8; }
+.reveal .hook[data-sc='7'] .motes circle { animation: mote 7s ease-in-out infinite alternate; } .reveal .hook[data-sc='7'] .motes circle:nth-child(2n) { animation-duration: 9s; animation-direction: alternate-reverse; }
+@keyframes mote { from { transform: translate(-16px, 20px); } to { transform: translate(22px, -34px); } }

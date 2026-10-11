@@ -135,6 +135,11 @@ function toggle(tm: Timer) {
 const shown = (sel: string, root: ParentNode = document) => $$(sel, root).filter((e) => e.classList.contains('visible')).length;
 let counted = new WeakSet<HTMLElement>();
 function refresh() {
+  // The hook: fragment 1 names the family, 2–7 are scenes inside the house, 8 steps back out.
+  const hook = $('#hook');
+  const sc = shown('.fragment', hook);
+  hook.dataset.sc = String(sc);
+  hook.classList.toggle('inside', sc >= 2 && sc <= 7);
   $('#stairs').className = `stairs at${shown('.stepbox', $('#stairs'))}`;
   $$('.stepbox').forEach((s) => s.classList.toggle('lit', s.classList.contains('current-fragment')));
   $('#chart').classList.toggle('drawn', $('#drawchart').classList.contains('visible'));

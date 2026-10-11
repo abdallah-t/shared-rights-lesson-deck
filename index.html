@@ -58,10 +58,102 @@
             <div class="palm"><i data-e="palm_tree"></i></div>
             <div class="house"><div class="roof"></div><div class="wall"></div><div class="win"></div><div class="door2"></div></div>
           </div>
+          <!-- Inside the house: no people are ever shown. The home's objects tell the story. -->
+          <div class="roomwrap">
+            <svg class="room" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="warm" cx="50%" cy="36%" r="62%"><stop offset="0" stop-color="#f3d9a0" stop-opacity="0.36" /><stop offset="0.5" stop-color="#d9a093" stop-opacity="0.11" /><stop offset="1" stop-color="#d9a093" stop-opacity="0" /></radialGradient>
+                <radialGradient id="halo"><stop offset="0" stop-color="#ffe2a0" stop-opacity="0.75" /><stop offset="0.35" stop-color="#f3c070" stop-opacity="0.28" /><stop offset="1" stop-color="#f3c070" stop-opacity="0" /></radialGradient>
+                <linearGradient id="dawn" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#f6cf94" /><stop offset="0.5" stop-color="#dba391" /><stop offset="1" stop-color="#6f5c9c" /></linearGradient>
+                <linearGradient id="beam" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d9a4" stop-opacity="0.5" /><stop offset="1" stop-color="#f6d9a4" stop-opacity="0" /></linearGradient>
+                <linearGradient id="floorg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241a3a" /><stop offset="1" stop-color="#140f26" /></linearGradient>
+              </defs>
+              <rect width="1920" height="790" fill="#2b2042" />
+              <rect y="780" width="1920" height="300" fill="url(#floorg)" />
+              <rect y="776" width="1920" height="8" fill="#3d2f5c" />
+              <rect class="glow" width="1920" height="1080" fill="url(#warm)" />
+
+              <!-- door, left: open onto the night until the scene about secrets -->
+              <g class="doorway">
+                <path d="M150 780 V480 Q150 360 265 360 Q380 360 380 480 V780 Z" fill="#0d0a1e" />
+                <circle cx="230" cy="470" r="3" fill="#f3d9a0" /><circle cx="310" cy="540" r="2.4" fill="#f3d9a0" /><circle cx="270" cy="620" r="2" fill="#f3d9a0" /><circle cx="330" cy="440" r="2" fill="#f3d9a0" />
+                <path class="leaf" d="M150 780 V480 Q150 360 265 360 Q380 360 380 480 V780 Z" fill="#5d4333" stroke="#e3b866" stroke-width="5" />
+                <g class="latch"><rect x="316" y="570" width="76" height="16" rx="8" fill="#e3b866" /><circle cx="330" cy="578" r="13" fill="#e3b866" /></g>
+                <path d="M150 780 V480 Q150 360 265 360 Q380 360 380 480 V780" fill="none" stroke="#6a5590" stroke-width="12" />
+              </g>
+
+              <!-- window, right -->
+              <g class="window">
+                <path d="M1400 540 V340 Q1400 250 1485 250 Q1570 250 1570 340 V540 Z" fill="#131030" />
+                <g class="night"><circle cx="1440" cy="330" r="3" fill="#fff" /><circle cx="1530" cy="420" r="2.4" fill="#fff" /><circle cx="1450" cy="470" r="2" fill="#fff" /><path d="M1515 300 a34 34 0 1 0 22 60 a28 28 0 1 1 -22 -60" fill="#f3d9a0" /></g>
+                <path class="dawnsky" d="M1400 540 V340 Q1400 250 1485 250 Q1570 250 1570 340 V540 Z" fill="url(#dawn)" />
+                <path d="M1485 250 V540 M1400 400 H1570" stroke="#6a5590" stroke-width="6" />
+                <path d="M1400 540 V340 Q1400 250 1485 250 Q1570 250 1570 340 V540 Z" fill="none" stroke="#6a5590" stroke-width="12" />
+                <rect x="1384" y="536" width="202" height="16" rx="6" fill="#6a5590" />
+              </g>
+              <polygon class="beam" points="1400,250 1570,250 1330,1080 620,1080" fill="url(#beam)" />
+
+              <!-- rug -->
+              <path d="M430 820 H1490 L1640 1030 H280 Z" fill="#4b2a44" />
+              <path d="M462 842 H1458 L1584 1008 H336 Z" fill="none" stroke="#e3b866" stroke-opacity="0.5" stroke-width="5" stroke-dasharray="22 12" />
+
+              <!-- two cushions, always side by side -->
+              <g class="cushions"><ellipse cx="1560" cy="806" rx="190" ry="14" fill="#0f0a1c" opacity="0.45" /><rect x="1400" y="716" width="160" height="88" rx="36" fill="#8a5a72" transform="rotate(5 1480 760)" /><rect x="1566" y="716" width="160" height="88" rx="36" fill="#4f7f84" transform="rotate(-5 1646 760)" /></g>
+
+              <!-- shelf with two oil lamps -->
+              <rect x="740" y="440" width="440" height="16" rx="5" fill="#6d4b39" /><path d="M780 456 l14 40 M1140 456 l-14 40" stroke="#6d4b39" stroke-width="8" />
+              <g class="lamp la" transform="translate(860 440)"><circle class="halo" r="230" fill="url(#halo)" /><path d="M-52 -22 Q0 22 52 -22 L66 -30 L50 -34 Q0 -18 -50 -34 Z" fill="#c38d5e" /><g class="flame"><path d="M0 -30 C18 -52 10 -78 0 -104 C-10 -78 -18 -52 0 -30 Z" fill="#ffd27a" /><path d="M0 -34 C9 -50 5 -64 0 -80 C-5 -64 -9 -50 0 -34 Z" fill="#fff6d8" /></g></g>
+              <g class="lamp lb" transform="translate(1060 440)"><circle class="halo" r="230" fill="url(#halo)" /><path d="M-52 -22 Q0 22 52 -22 L66 -30 L50 -34 Q0 -18 -50 -34 Z" fill="#c38d5e" /><g class="flame"><path d="M0 -30 C18 -52 10 -78 0 -104 C-10 -78 -18 -52 0 -30 Z" fill="#ffd27a" /><path d="M0 -34 C9 -50 5 -64 0 -80 C-5 -64 -9 -50 0 -34 Z" fill="#fff6d8" /></g></g>
+              <circle class="spark" cx="1060" cy="372" r="9" fill="#fff6d8" />
+
+              <!-- hand mill -->
+              <g transform="translate(500 880)">
+                <ellipse cy="24" rx="126" ry="38" fill="#544c66" /><rect x="-126" y="-6" width="252" height="30" fill="#544c66" /><ellipse cy="-6" rx="126" ry="38" fill="#6f6782" />
+                <rect x="-104" y="-52" width="208" height="42" fill="#857c99" /><ellipse cy="-10" rx="104" ry="31" fill="#857c99" /><ellipse cy="-52" rx="104" ry="31" fill="#a79fba" />
+                <g transform="translate(0 -52) scale(1 0.3)"><g class="millspin"><circle r="20" fill="#544c66" /><path d="M0 0 H84" stroke="#857c99" stroke-width="10" /><circle cx="80" r="16" fill="#e3b866" /></g></g>
+                <circle class="flour f1" cx="118" cy="0" r="5" fill="#f6eedd" /><circle class="flour f2" cx="-112" cy="4" r="4" fill="#f6eedd" /><circle class="flour f3" cx="96" cy="14" r="4" fill="#f6eedd" />
+              </g>
+
+              <!-- water skin on the wall, and the jar it drips into -->
+              <g transform="translate(1290 0)">
+                <path d="M-70 330 H70" stroke="#6d4b39" stroke-width="10" stroke-linecap="round" /><path d="M-52 334 L-40 372 M52 334 L40 372" stroke="#8a6a55" stroke-width="5" />
+                <path d="M-74 392 Q-80 362 -40 366 H40 Q80 362 74 392 Q66 440 0 446 Q-66 440 -74 392 Z" fill="#7b5946" /><path d="M-8 444 L0 466 L8 444 Z" fill="#5c3e2c" />
+                <circle class="drop d1" cy="474" r="7" fill="#9fdcdc" /><circle class="drop d2" cy="474" r="7" fill="#9fdcdc" />
+                <ellipse cy="800" rx="74" ry="14" fill="#0f0a1c" opacity="0.5" />
+                <path d="M-58 800 Q-92 730 -46 676 L-34 656 H34 L46 676 Q92 730 58 800 Z" fill="#b57c53" /><path d="M-70 742 Q0 760 70 742" fill="none" stroke="#8f5f3e" stroke-width="5" /><ellipse cy="656" rx="34" ry="9" fill="#5c3e2c" /><ellipse class="ripple" cy="656" rx="22" ry="5" fill="none" stroke="#9fdcdc" stroke-width="3" />
+              </g>
+              <path class="rhythm" d="M600 770 Q920 590 1250 640" fill="none" stroke="#e3b866" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 22" />
+
+              <!-- tray, bread and two cups -->
+              <g transform="translate(960 930)">
+                <g class="cup cl" transform="translate(-235 -6)"><path d="M-30 -44 H30 L22 10 H-22 Z" fill="#b57c53" /><ellipse cy="-44" rx="30" ry="8" fill="#5c3e2c" /></g>
+                <g class="cup cr" transform="translate(235 -6)"><path d="M-30 -44 H30 L22 10 H-22 Z" fill="#b57c53" /><ellipse cy="-44" rx="30" ry="8" fill="#5c3e2c" /></g>
+                <g class="tray"><ellipse rx="150" ry="34" fill="#6d4b39" stroke="#e3b866" stroke-width="4" />
+                  <g transform="translate(0 -8) scale(1 0.36)"><path class="half hl" d="M-3 -84 A84 84 0 0 0 -3 84 Z" fill="#e6b672" /><path class="half hr" d="M3 -84 A84 84 0 0 1 3 84 Z" fill="#e6b672" /></g></g>
+              </g>
+
+              <!-- whispers that stay inside -->
+              <g class="whisper w1"><rect x="-44" y="-24" width="88" height="48" rx="24" fill="#f6eedd" /><circle cx="-20" r="6" fill="#5b4474" /><circle r="6" fill="#5b4474" /><circle cx="20" r="6" fill="#5b4474" /></g>
+              <g class="whisper w2"><rect x="-36" y="-20" width="72" height="40" rx="20" fill="#f6eedd" /><circle cx="-16" r="5" fill="#5b4474" /><circle r="5" fill="#5b4474" /><circle cx="16" r="5" fill="#5b4474" /></g>
+              <g class="whisper w3"><rect x="-36" y="-20" width="72" height="40" rx="20" fill="#f6eedd" /><circle cx="-16" r="5" fill="#5b4474" /><circle r="5" fill="#5b4474" /><circle cx="16" r="5" fill="#5b4474" /></g>
+
+              <!-- two prayer mats, unrolled at dawn -->
+              <g class="mats">
+                <g class="mat m1"><path d="M800 850 H985 L960 1040 H745 Z" fill="#2f6f6b" stroke="#e3b866" stroke-width="4" /><path d="M835 880 Q892 846 950 880 L938 1010 H812 Z" fill="none" stroke="#e3b866" stroke-opacity="0.7" stroke-width="3" /></g>
+                <g class="mat m2"><path d="M1025 850 H1210 L1265 1040 H1050 Z" fill="#8a5a72" stroke="#e3b866" stroke-width="4" /><path d="M1060 880 Q1118 846 1176 880 L1200 1010 H1074 Z" fill="none" stroke="#e3b866" stroke-opacity="0.7" stroke-width="3" /></g>
+              </g>
+              <g class="motes"><circle cx="1180" cy="620" r="4" /><circle cx="1050" cy="760" r="3" /><circle cx="1290" cy="520" r="3" /><circle cx="960" cy="900" r="4" /><circle cx="1120" cy="840" r="3" /><circle cx="1380" cy="640" r="3" /></g>
+            </svg>
+          </div>
           <p class="tag in" style="--i: 0">المقدمة · رحلة عبر التاريخ</p>
           <div class="years"><p class="lead muted">نعود بالزمن إلى القرن</p><b id="century">15</b><p class="lead muted">الهجري</p></div>
-          <div class="names fragment"><p class="small">قبل أكثر من أربعة عشر قرنًا… بيتٌ صغير، أثاثه قليل</p><h2 class="gold">سيدنا عليّ والسيدة فاطمة الزهراء</h2><p class="lead">رضي الله عنهما</p></div>
-          <div class="words"><span class="chip g fragment zoom">مودّة</span><span class="chip r fragment zoom">رحمة</span><span class="chip s fragment zoom">تعاون</span><span class="chip t fragment zoom">كلٌّ يعرف حقّ الآخر</span></div>
+          <div class="cap names fragment"><p class="small">قبل أكثر من أربعة عشر قرنًا…</p><h2 class="gold">سيدنا عليّ والسيدة فاطمة الزهراء</h2><p class="lead">رضي الله عنهما · لِنَدخل بيتهما <kbd>→</kbd></p></div>
+          <div class="cap fragment"><h3>بيتٌ صغير… أثاثه قليل</h3><p class="lead">لكنّه عامرٌ <b class="gold">بالسكينة</b></p></div>
+          <div class="cap fragment"><h3 class="gold">تعاوُن</h3><p class="lead">يتقاسمان العمل: رحًى تدور هنا… وماءٌ يُملأ هناك</p></div>
+          <div class="cap fragment"><h3 class="gold">إيثار</h3><p class="lead">كلٌّ منهما يقدّم صاحبَه على نفسه… ثم يقتسمان</p></div>
+          <div class="cap fragment"><h3 class="gold">مواساة</h3><p class="lead">إذا خبا نورُ أحدهما… أضاءه الآخر</p></div>
+          <div class="cap fragment"><h3 class="gold">سِتر</h3><p class="lead">ما يُقال في البيت… يبقى في البيت</p></div>
+          <div class="cap fragment"><h3 class="gold">عونٌ على الطاعة</h3><p class="lead">مع أوّل الفجر… سجّادتان متجاورتان</p></div>
           <div class="ask fragment zoom f-ask"><h2>تُرى… ما <span class="shimmer">سرّ نجاح</span> هذه الأسرة؟</h2></div>
         </section>
 
