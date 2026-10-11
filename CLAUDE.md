@@ -80,6 +80,10 @@ The hook slide is a motion graphic: the centuries count back, the camera pushes 
 
 Run `bun run build` then `bun run test`. The test prints one JSON line; `problems` and `overflow` must be empty. Screenshots of every step land in `test-output/`: look at the slides you changed, since the test cannot judge layout or Arabic text for you.
 
+## Style candidates
+
+`styles-demo/styles.html` shows five candidate looks for a redesign, five sample slides each (source: `styles.html`, `src/styles/`; rebuild with `bun run styles:build`; screenshot all 25 with `bun scripts/styleshots.ts <out-dir>`). ← → move between styles, ↑ ↓ through a style's slides. The main deck still uses the Lantern Night style until one is chosen.
+
 ## Things that are not finished
 
 - No AI illustrations were generated (the API key supplied at the time was invalid). `tools/gen_ai_assets.py` holds the prompts; it needs `OPENAI_API_KEY` in the environment or in a git-ignored `.env`. **Never commit a key.**
