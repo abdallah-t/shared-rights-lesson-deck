@@ -523,3 +523,6 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal section.present .vtrack b { animation: vtrack 20s linear 0.4s both; } @keyframes vtrack { to { width: 100%; } }
 .reveal .vtime { font: 700 22px 'Tajawal'; color: var(--muted); counter-reset: vt var(--vt); } .reveal .vtime::before { content: '0:' counter(vt, decimal-leading-zero) ' / 0:20'; }
 .reveal section.present .vtime { animation: vtime 20s steps(20, end) 0.4s both; } @keyframes vtime { to { --vt: 20; } }
+
+/* ---------- title slide: the Ministry of Education logo, large, at the top ---------- */
+.reveal .moe { position: absolute; top: 40px; left: 0; right: 0; margin-inline: auto; height: 230px; border-radius: 22px; background: #fff; padding: 12px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); }
