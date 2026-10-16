@@ -1,8 +1,8 @@
 // Records every step of the built deck as a short video clip, for the animated PPTX (v2).
-//   bun scripts/capture-clips.ts <out-dir> [--only N]     (run `bun run build` first)
+//   bun scripts/capture-clips.ts <out-dir> [--scale 1.5] [--crf 18] [--only N]     (run `bun run build` first)
 // Time is stepped by hand, one frame at a time, so every clip is smooth and exact:
 // JavaScript timers run on a fake clock and CSS animations are advanced to match.
-// Writes NNN.mp4 (1920 x 1080, 30 fps), NNN.jpg (first frame) and clips.json. The deck is not changed.
+// Writes NNN.mp4 (1920 x 1080 times --scale, 30 fps), NNN.jpg (first frame) and clips.json. The deck is not changed.
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -13,11 +13,14 @@ import { chromium } from 'playwright-core';
 const FPS = 30;
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = resolve(process.argv[2] ?? resolve(app, 'test-output/clips'));
-const only = process.argv.includes('--only') ? +process.argv[process.argv.indexOf('--only') + 1] : Infinity;
+const arg = (k: string, d: number) => (process.argv.includes(k) ? +process.argv[process.argv.indexOf(k) + 1] : d);
+const only = arg('--only', Infinity);
+const SCALE = arg('--scale', 1.5); // 1.5 gives 2880 x 1620
+const CRF = arg('--crf', 18);
 mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: SCALE });
 const problems: string[] = [];
 page.on('pageerror', (e) => problems.push(String(e)));
 await page.goto(pathToFileURL(resolve(app, 'deck/index.html')).href);
@@ -41,7 +44,7 @@ async function tick() {
     }
   }, vt);
 }
-const frame = () => page.screenshot({ type: 'jpeg', quality: 96 });
+const frame = () => page.screenshot({ type: 'png' }); // lossless: the only compression is the final encode
 const where = () => page.evaluate(() => { const i = (window as any).__deck.reveal.getIndices(); return { h: i.h as number, f: ((i.f ?? -1) + 1) as number, id: document.querySelector('.reveal .slides > section.present')!.id }; });
 
 type At = { h: number; f: number; id: string };
@@ -53,8 +56,8 @@ const clips: { file: string; slide: number; step: number; seconds: number }[] = 
 async function clip(act: () => Promise<{ at: At; seconds: number }>, firstFrame = true) {
   const name = String(clips.length).padStart(3, '0');
   // prettier-ignore
-  const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
-    '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p', '-c:v', 'libx264', '-preset', 'slow', '-crf', '27', '-profile:v', 'high',
+  const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'png', '-i', '-',
+    '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p', '-c:v', 'libx264', '-preset', 'slow', '-tune', 'film', '-crf', String(CRF), '-profile:v', 'high',
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv', '-movflags', '+faststart', resolve(out, `${name}.mp4`)], { stdio: ['pipe', 'inherit', 'inherit'] });
   const done = once(ff, 'close');
   const put = async (b: Buffer) => { if (!ff.stdin.write(b)) await once(ff.stdin, 'drain'); };
@@ -64,7 +67,7 @@ async function clip(act: () => Promise<{ at: At; seconds: number }>, firstFrame 
   for (let i = 0; i < n; i++) { await tick(); await put(await frame()); }
   ff.stdin.end();
   await done;
-  const p = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-i', resolve(out, `${name}.mp4`), '-frames:v', '1', '-q:v', '2', resolve(out, `${name}.jpg`)]);
+  const p = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-i', resolve(out, `${name}.mp4`), '-frames:v', '1', '-q:v', '1', resolve(out, `${name}.jpg`)]);
   await once(p, 'close');
   clips.push({ file: `${name}.mp4`, slide: at.h + 1, step: at.f, seconds: (n + (firstFrame ? 1 : 0)) / FPS });
   return at;
