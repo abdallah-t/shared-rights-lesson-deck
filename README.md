@@ -2,7 +2,9 @@
 
 عرض تقديمي تفاعلي لدرس «الحقوق المشتركة بين الزوجين» · أحكام الأسرة والزواج في الإسلام · دين 201 · ثاني ثانوي.
 
-An interactive lesson deck (32 slides, Arabic, right to left) built with reveal.js in the «ورق وحبر» (Paper & Ink) style.
+An interactive lesson deck (32 slides, Arabic, right to left) built with reveal.js and a live three.js background, in a calm "Lantern Night" style.
+
+![Style board](docs/style-board.png)
 
 ## افتحي العرض · Open it
 
@@ -31,7 +33,8 @@ Title · class agreement · secret-student award · a journey back through histo
 
 - Lesson content: the teacher's original slides and the course textbook (pp. 69–74).
 - Statistics: registered divorce cases in Bahrain, 2001–2021, from the [Bahrain Open Data Portal](https://www.data.gov.bh/explore/dataset/divorce-cases/) (Ministry of Justice, Islamic Affairs and Waqf).
-- Fonts: Noto Kufi Arabic, IBM Plex Sans Arabic, Amiri (SIL Open Font Licence).
-- Built with [reveal.js](https://revealjs.com).
+- Emoji: [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji), MIT licence.
+- Fonts: El Messiri, Tajawal, Reem Kufi, Amiri (SIL Open Font Licence).
+- Built with [reveal.js](https://revealjs.com) and [three.js](https://threejs.org).
 
 **Before teaching:** every verse and hadith was typed from the textbook and should be proofread by the teacher.

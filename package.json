@@ -25,9 +25,13 @@
     "@fontsource/noto-naskh-arabic": "^5.3.0",
     "@fontsource/rakkas": "^5.3.0",
     "@fontsource/readex-pro": "^5.3.0",
-    "reveal.js": "^6.0.2"
+    "@fontsource/reem-kufi": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0",
+    "reveal.js": "^6.0.2",
+    "three": "0.186.1"
   },
   "devDependencies": {
+    "@types/three": "0.186.0",
     "playwright-core": "^1.64.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
