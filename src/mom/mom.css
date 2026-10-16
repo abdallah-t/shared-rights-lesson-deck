@@ -324,6 +324,9 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 
 /* scene 7, helping each other worship: dawn comes in and two mats unroll side by side */
 .reveal .hook .dawnsky, .reveal .hook .beam { opacity: 0; transition: opacity 2.4s 0.8s; }
+.reveal .hook .spill { opacity: 0; transition: opacity 2.4s 0.8s; } .reveal .hook[data-sc='7'] .spill { opacity: 1; }
+.reveal .hook .beam .shaft { mix-blend-mode: screen; filter: blur(7px); } .reveal .hook .beam .pool { mix-blend-mode: screen; opacity: 0.6; filter: blur(2px); } .reveal .hook .beam .pool polygon { fill: #ffdfa8; }
+.reveal .hook[data-sc='7'] .beam .shaft { animation: shaft 6s ease-in-out infinite alternate; } @keyframes shaft { from { opacity: 0.85; } to { opacity: 1; } }
 .reveal .hook .night { transition: opacity 2s 0.8s; }
 .reveal .hook[data-sc='7'] .dawnsky { opacity: 1; } .reveal .hook[data-sc='7'] .beam { opacity: 1; } .reveal .hook[data-sc='7'] .night { opacity: 0; }
 .reveal .hook .mat { transform-origin: 50% 0; transform: scaleY(0); opacity: 0; transition: transform 1.6s var(--ease) 2s, opacity 0.4s 2s; }

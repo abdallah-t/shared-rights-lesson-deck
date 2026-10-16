@@ -66,7 +66,7 @@
                 <radialGradient id="warm" cx="50%" cy="36%" r="62%"><stop offset="0" stop-color="#f3d9a0" stop-opacity="0.36" /><stop offset="0.5" stop-color="#d9a093" stop-opacity="0.11" /><stop offset="1" stop-color="#d9a093" stop-opacity="0" /></radialGradient>
                 <radialGradient id="halo"><stop offset="0" stop-color="#ffe2a0" stop-opacity="0.75" /><stop offset="0.35" stop-color="#f3c070" stop-opacity="0.28" /><stop offset="1" stop-color="#f3c070" stop-opacity="0" /></radialGradient>
                 <linearGradient id="dawn" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#f6cf94" /><stop offset="0.5" stop-color="#dba391" /><stop offset="1" stop-color="#6f5c9c" /></linearGradient>
-                <linearGradient id="beam" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d9a4" stop-opacity="0.5" /><stop offset="1" stop-color="#f6d9a4" stop-opacity="0" /></linearGradient>
+                <linearGradient id="shaft" gradientUnits="userSpaceOnUse" x1="1485" y1="395" x2="1119" y2="992"><stop offset="0" stop-color="#ffdca6" stop-opacity="0.45" /><stop offset="0.6" stop-color="#ffd59a" stop-opacity="0.14" /><stop offset="1" stop-color="#ffd59a" stop-opacity="0.03" /></linearGradient><radialGradient id="sill"><stop offset="0" stop-color="#ffd9a0" stop-opacity="0.38" /><stop offset="1" stop-color="#ffd9a0" stop-opacity="0" /></radialGradient>
                 <linearGradient id="floorg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241a3a" /><stop offset="1" stop-color="#140f26" /></linearGradient>
               </defs>
               <rect width="1920" height="790" fill="#2b2042" />
@@ -84,6 +84,7 @@
               </g>
 
               <!-- window, right -->
+              <ellipse class="spill" cx="1485" cy="400" rx="260" ry="250" fill="url(#sill)" />
               <g class="window">
                 <path d="M1400 540 V340 Q1400 250 1485 250 Q1570 250 1570 340 V540 Z" fill="#131030" />
                 <g class="night"><circle cx="1440" cy="330" r="3" fill="#fff" /><circle cx="1530" cy="420" r="2.4" fill="#fff" /><circle cx="1450" cy="470" r="2" fill="#fff" /><path d="M1515 300 a34 34 0 1 0 22 60 a28 28 0 1 1 -22 -60" fill="#f3d9a0" /></g>
@@ -92,8 +93,7 @@
                 <path d="M1400 540 V340 Q1400 250 1485 250 Q1570 250 1570 340 V540 Z" fill="none" stroke="#6a5590" stroke-width="12" />
                 <rect x="1384" y="536" width="202" height="16" rx="6" fill="#6a5590" />
               </g>
-              <polygon class="beam" points="1400,250 1570,250 1330,1080 620,1080" fill="url(#beam)" />
-
+              
               <!-- rug -->
               <path d="M430 820 H1490 L1640 1030 H280 Z" fill="#4b2a44" />
               <path d="M462 842 H1458 L1584 1008 H336 Z" fill="none" stroke="#e3b866" stroke-opacity="0.5" stroke-width="5" stroke-dasharray="22 12" />
@@ -143,7 +143,12 @@
                 <g class="mat m1"><path d="M800 850 H985 L960 1040 H745 Z" fill="#2f6f6b" stroke="#e3b866" stroke-width="4" /><path d="M835 880 Q892 846 950 880 L938 1010 H812 Z" fill="none" stroke="#e3b866" stroke-opacity="0.7" stroke-width="3" /></g>
                 <g class="mat m2"><path d="M1025 850 H1210 L1265 1040 H1050 Z" fill="#8a5a72" stroke="#e3b866" stroke-width="4" /><path d="M1060 880 Q1118 846 1176 880 L1200 1010 H1074 Z" fill="none" stroke="#e3b866" stroke-opacity="0.7" stroke-width="3" /></g>
               </g>
-              <g class="motes"><circle cx="1180" cy="620" r="4" /><circle cx="1050" cy="760" r="3" /><circle cx="1290" cy="520" r="3" /><circle cx="960" cy="900" r="4" /><circle cx="1120" cy="840" r="3" /><circle cx="1380" cy="640" r="3" /></g>
+              <!-- dawn light through the window: the opening projected onto the floor along one ray direction -->
+              <g class="beam">
+                <polygon class="shaft" points="948,1057 950,1052 1419,286 1426,277 1434,269 1445,264 1457,259 1470,257 1485,256 1500,257 1513,259 1525,264 1536,269 1544,277 1551,286 1557,297 1561,310 1563,324 1564,340 1564,534 1330,915 1146,1022 1130,1031 1114,1039 1098,1046 1082,1052 1066,1057 1050,1061 1035,1064 1019,1066 1003,1068 987,1068 973,1068 962,1066 954,1064 949,1061" fill="url(#shaft)" />
+                <g class="pool"><polygon points="1042,991 988,1022 984,1024 980,1027 977,1029 974,1031 971,1033 968,1035 965,1037 962,1039 960,1040 958,1042 956,1044 954,1046 953,1047 952,1049 950,1050 950,1052 949,1053 948,1054 948,1055 948,1057 948,1058 948,1059 949,1060 949,1061 950,1062 951,1063 953,1063 954,1064 956,1065 958,1065 960,1066 962,1066 964,1067 967,1067 970,1067 973,1068 976,1068 980,1068 983,1068 984,1068 1118,991" /><polygon points="1124,991 990,1068 991,1068 995,1068 999,1068 1003,1068 1007,1067 1011,1067 1015,1067 1019,1066 1023,1066 1027,1065 1031,1065 1035,1064 1039,1063 1043,1063 1047,1062 1051,1061 1054,1060 1058,1059 1062,1058 1066,1057 1070,1055 1074,1054 1078,1053 1082,1052 1086,1050 1090,1049 1094,1047 1098,1046 1102,1044 1106,1042 1110,1040 1114,1039 1118,1037 1122,1035 1126,1033 1130,1031 1134,1029 1138,1027 1142,1024 1146,1022 1200,991" /><polygon points="1172,915 1048,987 1124,987 1248,915" /><polygon points="1254,915 1130,987 1206,987 1330,915" /></g>
+              </g>
+              <g class="motes"><circle cx="1401" cy="508" r="3" /><circle cx="1390" cy="576" r="4" /><circle cx="1294" cy="678" r="3" /><circle cx="1289" cy="735" r="3.5" /><circle cx="1219" cy="833" r="3" /><circle cx="1213" cy="888" r="4" /><circle cx="1379" cy="664" r="2.5" /><circle cx="1207" cy="759" r="2.5" /></g>
             </svg>
           </div>
           <p class="tag in" style="--i: 0">المقدمة · رحلة عبر التاريخ</p>
