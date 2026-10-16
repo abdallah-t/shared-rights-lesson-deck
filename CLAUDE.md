@@ -82,7 +82,7 @@ Run `bun run build` then `bun run test`. The test prints one JSON line; `problem
 
 ## Style candidates
 
-`styles-demo/styles.html` shows five candidate looks for a redesign, five sample slides each (source: `styles.html`, `src/styles/`; rebuild with `bun run styles:build`; screenshot all 25 with `bun scripts/styleshots.ts <out-dir>`). ← → move between styles, ↑ ↓ through a style's slides. Paper & Ink was chosen and applied. The previous Lantern Night version is the git tag `lantern-night`.
+`styles-demo/styles.html` shows ten candidate looks for a redesign, five sample slides each (source: `styles.html`, `src/styles/`; rebuild with `bun run styles:build`; screenshot every slide with `bun scripts/styleshots.ts <out-dir> [first-style-index]`). Styles 1–5 were the first round; 6–10 (Riso, Blueprint, Chalkboard, Night Garden, Square Kufic) the second. Kufam drops the dots of a final ي, so style 10 uses it only for headlines without one. ← → move between styles, ↑ ↓ through a style's slides. Paper & Ink was chosen and applied. The previous Lantern Night version is the git tag `lantern-night`.
 
 ## Things that are not finished
 

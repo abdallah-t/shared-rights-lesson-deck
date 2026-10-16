@@ -18,11 +18,24 @@ import '@fontsource/lalezar/latin-400.css';
 import '@fontsource/noto-kufi-arabic/arabic-400.css';
 import '@fontsource/noto-kufi-arabic/arabic-700.css';
 import '@fontsource/noto-kufi-arabic/arabic-900.css';
+import '@fontsource/readex-pro/arabic-300.css';
 import '@fontsource/readex-pro/arabic-400.css';
 import '@fontsource/readex-pro/arabic-600.css';
+import '@fontsource/readex-pro/latin-300.css';
 import '@fontsource/readex-pro/latin-400.css';
 import '@fontsource/readex-pro/latin-600.css';
-import '@fontsource/reem-kufi/arabic-700.css';
+import '@fontsource/aref-ruqaa/arabic-400.css';
+import '@fontsource/aref-ruqaa/arabic-700.css';
+import '@fontsource/changa/arabic-500.css';
+import '@fontsource/changa/arabic-800.css';
+import '@fontsource/changa/latin-500.css';
+import '@fontsource/changa/latin-800.css';
+import '@fontsource/kufam/arabic-500.css';
+import '@fontsource/kufam/arabic-800.css';
+import '@fontsource/kufam/latin-500.css';
+import '@fontsource/kufam/latin-800.css';
+import '@fontsource/noto-naskh-arabic/arabic-400.css';
+import '@fontsource/noto-naskh-arabic/arabic-700.css';
 import Reveal from 'reveal.js';
 import 'reveal.js/reveal.css';
 import './styles.css';
@@ -36,6 +49,11 @@ const STYLES = [
   { id: 's3', name: 'زمرّد ونحاس', en: 'Emerald & Brass', bg: '#0b1d18' },
   { id: 's4', name: 'زلّيج', en: 'Zellige', bg: '#efe3cc' },
   { id: 's5', name: 'ليل رقمي', en: 'Night UI', bg: '#0d0e11' },
+  { id: 's6', name: 'ريزو', en: 'Riso Print', bg: '#efe8dc' },
+  { id: 's7', name: 'مخطّط', en: 'Blueprint', bg: '#173a7a' },
+  { id: 's8', name: 'سبّورة', en: 'Chalkboard', bg: '#22332e' },
+  { id: 's9', name: 'حديقة الليل', en: 'Night Garden', bg: '#0f2620' },
+  { id: 's10', name: 'كوفي مربّع', en: 'Square Kufic', bg: '#1b1a18' },
 ];
 
 const icon = (d: string) => `<svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -65,13 +83,36 @@ function deco(id: string) {
     }
     return `<div class="tiles">${tiles}</div>`;
   }
+  if (id === 's6') return '<div class="riso"><b class="r1"></b><b class="r2"></b><b class="r3"></b></div>';
+  if (id === 's7') {
+    // A construction drawing of an eight-point star, as a draughtsman would set it out.
+    const sq = (r: number, a: number) => `<rect x="${-r}" y="${-r}" width="${2 * r}" height="${2 * r}" transform="rotate(${a})"/>`;
+    return `<svg class="bp" viewBox="-460 -460 920 920"><g fill="none" stroke="currentColor"><g stroke-width="1" opacity=".45"><circle r="420"/><circle r="300"/><path d="M-460 0H460M0-460V460M-330-330L330 330M330-330L-330 330"/></g><g stroke-width="2.5">${sq(212, 0)}${sq(212, 45)}</g><g stroke-width="1.2" stroke-dasharray="8 8">${sq(150, 22.5)}${sq(150, 67.5)}</g><path stroke-width="1.5" d="M-420 440H420M-420 430v20M420 430v20"/></g><text x="0" y="476" fill="currentColor" font-size="22" text-anchor="middle" font-family="JetBrains Mono">Ø 840 · KHATAM 8/2</text></svg>`;
+  }
+  if (id === 's8') return '<svg class="chalkdoodle" viewBox="0 0 600 600"><defs><filter id="chalk"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter></defs><g filter="url(#chalk)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="#f1d97a" stroke-width="9" d="M300 70l55 120 132 16-97 92 25 131-115-64-115 64 25-131-97-92 132-16z"/><path stroke="#f2a7b5" stroke-width="7" d="M110 520c90-30 290-34 390 4"/><path stroke="#9ccbe8" stroke-width="6" d="M470 90c40 20 70 60 76 110M500 70c50 30 84 84 88 140"/></g></svg>';
+  if (id === 's9') {
+    // An olive branch, drawn as a single line.
+    let leaves = '';
+    for (let k = 0; k < 9; k++) {
+      const y = 120 + k * 78, side = k % 2 ? 1 : -1, x = 300 + Math.sin(k * 0.7) * 30;
+      leaves += `<path d="M${x} ${y} q${side * 70} -30 ${side * 130} 6 q${-side * 62} 40 ${-side * 130} -6z"/>`;
+      if (k % 3 === 1) leaves += `<ellipse cx="${x + side * 40}" cy="${y + 34}" rx="15" ry="21" class="fruit"/>`;
+    }
+    return `<svg class="olive" viewBox="0 0 600 900"><path class="stem" d="M300 840 C270 680 340 520 300 360 S290 140 330 60"/><g class="leaves">${leaves}</g></svg><div class="archwin"></div>`;
+  }
+  if (id === 's10') {
+    // Square-Kufic style blocks: a maze-like tile built from a fixed pattern.
+    const rows = ['1111111111', '1000000001', '1011111101', '1010000101', '1010110101', '1010010101', '1011110101', '1000000101', '1111111101', '0000000001'];
+    const cells = rows.map((r, y) => [...r].map((c, x) => (c === '1' ? `<rect x="${x * 10}" y="${y * 10}" width="10" height="10" class="k${(x * 3 + y * 7) % 11 === 0 ? 'a' : (x + y) % 13 === 0 ? 'b' : ''}"/>` : '')).join('')).join('');
+    return `<svg class="kufic" viewBox="-2 -2 104 104">${cells}</svg>`;
+  }
   if (id === 's2') return '<div class="shapes"><b class="g1"></b><b class="g2"></b><b class="g3"></b><b class="g4"></b></div>';
   if (id === 's5') return '<div class="grid5"><span>201</span></div>';
   return '<div class="disc"></div>';
 }
 
 function slides(st: (typeof STYLES)[number], n: number) {
-  const foot = (k: number) => `<footer class="ft"><span>${st.name}</span><span class="en">${st.en} · 0${n + 1}</span><span class="pg">0${k} / 05</span></footer>`;
+  const foot = (k: number) => `<footer class="ft"><span>${st.name}</span><span class="en">${st.en} · ${String(n + 1).padStart(2, '0')}</span><span class="pg">0${k} / 05</span></footer>`;
   const an = (i: number) => `class="an" style="--i:${i}"`;
   return `
   <section class="${st.id} t" data-bg="${st.bg}">
@@ -109,7 +150,7 @@ function slides(st: (typeof STYLES)[number], n: number) {
     ${foot(5)}
   </section>`
     // Each slide lays itself out inside one wrapper, so reveal.js can show and hide the section freely.
-    .replace(/(<section class="s\d [a-z]"[^>]*>)/g, '$1<div class="w">')
+    .replace(/(<section class="s\d+ [a-z]"[^>]*>)/g, '$1<div class="w">')
     .replace(/<\/section>/g, '</div></section>');
 }
 

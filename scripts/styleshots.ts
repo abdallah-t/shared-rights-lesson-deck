@@ -14,7 +14,9 @@ p.on('console', (m) => m.type() === 'error' && problems.push(m.text()));
 await p.goto(pathToFileURL(resolve(app, 'styles-demo/styles.html')).href);
 await p.waitForFunction(() => (window as any).__deck?.ready);
 const overflow: string[] = [];
-for (let h = 0; h < 5; h++)
+const count = await p.evaluate(() => document.querySelectorAll('.reveal .slides > section').length);
+const from = +(process.argv[3] ?? 0);
+for (let h = from; h < count; h++)
   for (let v = 0; v < 5; v++) {
     await p.evaluate(([a, c]) => (window as any).__deck.reveal.slide(a, c), [h, v]);
     await p.waitForTimeout(2300);
@@ -23,6 +25,6 @@ for (let h = 0; h < 5; h++)
     const bad = await p.evaluate(() => { const w = document.querySelector('section.present section.present .w') as HTMLElement; return w.scrollHeight > 1082 || w.scrollWidth > 1922 ? `${w.scrollWidth}x${w.scrollHeight}` : ''; });
     if (bad) overflow.push(`s${h + 1}-${v + 1}: ${bad}`);
   }
-console.log(JSON.stringify({ shots: 25, overflow, problems }));
+console.log(JSON.stringify({ shots: (count - from) * 5, overflow, problems }));
 await b.close();
 process.exit(0);
