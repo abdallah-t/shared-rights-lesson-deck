@@ -364,3 +364,31 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 .reveal .essay .qmark { position: absolute; left: 20px; top: 0; font: 700 480px/1 'El Messiri'; color: var(--gold); opacity: 0.85; text-shadow: 0 0 80px rgba(227, 184, 102, 0.35); }
 .reveal .essay h1 { font-size: 100px; line-height: 1.35; max-width: 1300px; position: relative; }
 .reveal .essay .lines { margin-top: 50px; max-width: 1300px; } .reveal .essay .lines i { display: block; border-top: 2px dashed rgba(227, 184, 102, 0.45); height: 64px; }
+
+/* ---------- slide 9: the leaked chat, drawn as a WhatsApp conversation (dark theme) ---------- */
+#chatslide .phone { width: 620px; border-radius: 64px; background: #0b141a; border: 12px solid #05040a; outline: 2px solid rgba(227, 184, 102, 0.55); padding: 0; overflow: hidden; position: relative; }
+#chatslide .phone::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><g fill='none' stroke='%23ffffff' stroke-opacity='.035' stroke-width='2'><circle cx='20' cy='22' r='9'/><path d='M70 14l8 14H62z'/><rect x='92' y='60' width='16' height='16' rx='4'/><path d='M18 84c6-8 14-8 20 0'/><path d='M60 96l6-6 6 6-6 6z'/></g></svg>"); pointer-events: none; }
+#chatslide .wa-status { display: flex; justify-content: space-between; align-items: center; padding: 14px 40px 6px; font: 700 20px 'Tajawal'; color: #e9edef; background: #202c33; direction: ltr; position: relative; }
+#chatslide .wa-sig { display: flex; gap: 3px; align-items: flex-end; } #chatslide .wa-sig i { width: 5px; background: #e9edef; border-radius: 2px; } #chatslide .wa-sig i:nth-child(1) { height: 7px; } #chatslide .wa-sig i:nth-child(2) { height: 11px; } #chatslide .wa-sig i:nth-child(3) { height: 15px; } #chatslide .wa-sig i:nth-child(4) { height: 19px; }
+#chatslide .phone header { background: #202c33; border: 0; padding: 10px 22px 16px; gap: 16px; color: #e9edef; position: relative; }
+#chatslide .wa-back { font: 400 54px/1 'Tajawal'; color: #e9edef; transform: scaleX(-1); margin-top: -8px; }
+#chatslide .av.n { width: 60px; height: 60px; margin: 0; border: 0; background: #00a884; color: #fff; font-size: 30px; }
+#chatslide .wa-who { flex: 1; font: 700 28px 'Tajawal'; } #chatslide .wa-who small { color: #8696a0; font: 500 18px 'Tajawal'; }
+#chatslide .wa-icons b { font-size: 34px; color: #aebac1; }
+#chatslide .chat { position: relative; padding: 14px 18px 10px; gap: 8px; }
+#chatslide .wa-note { flex: none; align-self: center; text-align: center; background: #182229; color: #ffd279; font: 500 17px/1.5 'Tajawal'; padding: 8px 18px; border-radius: 14px; max-width: 92%; }
+#chatslide .wa-note img.e { width: 20px; height: 20px; vertical-align: -3px; }
+#chatslide .wa-day { flex: none; align-self: center; background: #182229; color: #8696a0; font: 500 17px 'Tajawal'; padding: 4px 16px; border-radius: 10px; margin: 2px 0 6px; }
+#chatslide .msg { font: 500 24px/1.55 'Tajawal'; color: #e9edef; padding: 10px 18px 6px; border-radius: 18px; max-width: 84%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); }
+#chatslide .msg.sara { background: #005c4b; align-self: flex-end; border-radius: 18px 18px 18px 4px; }
+#chatslide .msg.noura { background: #202c33; align-self: flex-start; border-radius: 18px 4px 18px 18px; }
+#chatslide .msg::before { content: ''; position: absolute; top: auto; bottom: 0; width: 14px; height: 16px; }
+#chatslide .msg.sara::before { left: -8px; background: #005c4b; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+#chatslide .msg.noura::before { right: -8px; top: 0; bottom: auto; background: #202c33; clip-path: polygon(0 0, 100% 0, 0 100%); }
+#chatslide .msg small { display: block; text-align: left; direction: rtl; font: 500 15px 'Tajawal'; color: rgba(233, 237, 239, 0.6); opacity: 1; margin-top: 2px; }
+#chatslide .msg .tk { color: #53bdeb; font-weight: 700; letter-spacing: -0.3em; margin-inline-start: 6px; }
+#chatslide .msg mark { color: inherit; }
+#chatslide.clues-on .msg mark { background: rgba(255, 210, 121, 0.28); color: #ffd279; box-shadow: inset 0 -3px 0 #ffd279; }
+#chatslide .wa-bar { position: relative; display: flex; gap: 12px; align-items: center; padding: 10px 14px 18px; }
+#chatslide .wa-field { flex: 1; background: #2a3942; color: #8696a0; border-radius: 999px; padding: 12px 22px; font: 500 22px 'Tajawal'; display: flex; gap: 14px; align-items: center; } #chatslide .wa-field b { font-size: 28px; color: #8696a0; }
+#chatslide .wa-mic { width: 62px; height: 62px; border-radius: 50%; background: #00a884; color: #fff; display: grid; place-items: center; flex: none; } #chatslide .wa-mic svg { width: 30px; height: 30px; }
