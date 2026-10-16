@@ -19,7 +19,7 @@ const from = +(process.argv[3] ?? 0);
 for (let h = from; h < count; h++)
   for (let v = 0; v < 5; v++) {
     await p.evaluate(([a, c]) => (window as any).__deck.reveal.slide(a, c), [h, v]);
-    await p.waitForTimeout(2300);
+    await p.waitForTimeout(3600); // the cinematic styles open with up to 3 s of motion
     await p.evaluate(() => (document.querySelector('#hud') as HTMLElement).style.display = 'none');
     await p.screenshot({ path: resolve(out, `s${h + 1}-${v + 1}.png`) });
     const bad = await p.evaluate(() => { const w = document.querySelector('section.present section.present .w') as HTMLElement; return w.scrollHeight > 1082 || w.scrollWidth > 1922 ? `${w.scrollWidth}x${w.scrollHeight}` : ''; });

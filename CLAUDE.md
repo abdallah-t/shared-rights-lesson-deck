@@ -82,7 +82,7 @@ Run `bun run build` then `bun run test`. The test prints one JSON line; `problem
 
 ## Style candidates
 
-`styles-demo/styles.html` shows ten candidate looks for a redesign, five sample slides each (source: `styles.html`, `src/styles/`; rebuild with `bun run styles:build`; screenshot every slide with `bun scripts/styleshots.ts <out-dir> [first-style-index]`). Styles 1–5 were the first round; 6–10 (Riso, Blueprint, Chalkboard, Night Garden, Square Kufic) the second. Kufam drops the dots of a final ي, so style 10 uses it only for headlines without one. ← → move between styles, ↑ ↓ through a style's slides. Paper & Ink was chosen and applied. The previous Lantern Night version is the git tag `lantern-night`.
+`styles-demo/styles.html` shows fifteen candidate looks for a redesign, five sample slides each (source: `styles.html`, `src/styles/`; rebuild with `bun run styles:build`; screenshot every slide with `bun scripts/styleshots.ts <out-dir> [first-style-index]`). Styles 1–5 were the first round; 6–10 (Riso, Blueprint, Chalkboard, Night Garden, Square Kufic) the second. 11–15 (Paper Theatre, Mashrabiya Light, Dunes, Case File Noir, Archive 16mm) are cinematic: each slide is a scene whose moving layers come from `amb()` in `src/styles/main.ts`, with up to 3 s of opening motion (the screenshot script waits 3.6 s per slide). Kufam drops the dots of a final ي, so style 10 uses it only for headlines without one. ← → move between styles, ↑ ↓ through a style's slides. Paper & Ink was chosen and applied. The previous Lantern Night version is the git tag `lantern-night`.
 
 ## Things that are not finished
 

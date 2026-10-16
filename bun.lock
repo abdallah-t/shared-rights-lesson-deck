@@ -9,12 +9,15 @@
         "@fontsource/amiri": "^5.3.0",
         "@fontsource/aref-ruqaa": "^5.3.0",
         "@fontsource/changa": "^5.3.0",
+        "@fontsource/el-messiri": "^5.3.0",
         "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
         "@fontsource/jetbrains-mono": "^5.3.0",
         "@fontsource/kufam": "^5.3.0",
         "@fontsource/lalezar": "^5.3.0",
+        "@fontsource/marhey": "^5.3.0",
         "@fontsource/noto-kufi-arabic": "^5.3.0",
         "@fontsource/noto-naskh-arabic": "^5.3.0",
+        "@fontsource/rakkas": "^5.3.0",
         "@fontsource/readex-pro": "^5.3.0",
         "reveal.js": "^6.0.2",
       },
@@ -35,6 +38,8 @@
 
     "@fontsource/changa": ["@fontsource/changa@5.3.0", "", {}, "sha512-zKPYCAB4338o8g7SejgbXPlNbENNr9Y7aJMzrU+umlVBiPdU8tvJYiREHFbLFxge5mI89ktaR2gt7Q1Pq15Zsg=="],
 
+    "@fontsource/el-messiri": ["@fontsource/el-messiri@5.3.0", "", {}, "sha512-Fqhf6DEuRInnLso60tk2i8mQlFfDjYNeF6Ybrto7jBnAwNClQqn4g9lMae/M+ub1zWYteM98uPOA1DwU5J8hbw=="],
+
     "@fontsource/ibm-plex-sans-arabic": ["@fontsource/ibm-plex-sans-arabic@5.3.0", "", {}, "sha512-ZZ4g+JDgQY0NqSh4o0MNWU1sHQmtcee1g++aKAwyJvZxnT5y51JXsN1cIXnaQaMd40dcbK6QFYa+Z1LbaiNuqA=="],
 
     "@fontsource/jetbrains-mono": ["@fontsource/jetbrains-mono@5.3.0", "", {}, "sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A=="],
@@ -43,9 +48,13 @@
 
     "@fontsource/lalezar": ["@fontsource/lalezar@5.3.0", "", {}, "sha512-ptwEfWP7OlucVaRHpuMo6tfvw9xDcBEoaiIvzSDUb7z5pih+DZIRKLarulkJunVR+DnQ5VaJVjuVVOwrqiq7Cw=="],
 
+    "@fontsource/marhey": ["@fontsource/marhey@5.3.0", "", {}, "sha512-5v/maubwegrZ419c308p2/hzbAKeGuOhCCm3P3HF6JZf+RnX0NYFE8EqJ0wrSYvTtp9LE3T6m7pwwTIvU6hCyw=="],
+
     "@fontsource/noto-kufi-arabic": ["@fontsource/noto-kufi-arabic@5.3.0", "", {}, "sha512-3iSq8i00+omfUXFXuCUrNDz1ghck3HDXul3p3iAfY0Vd9NZqI1NcUNoAVPiUW+BaEQGYQSi+r0R3d1eoNK3OBg=="],
 
     "@fontsource/noto-naskh-arabic": ["@fontsource/noto-naskh-arabic@5.3.0", "", {}, "sha512-S/GDgQ6mh/PKo4mz5+eXNYbEarvpI7yh6eCdOz8tTVbeM7+OUiacIEscaYEibr/+egDtGbO2ZB00sjy1bJC1kQ=="],
+
+    "@fontsource/rakkas": ["@fontsource/rakkas@5.3.0", "", {}, "sha512-6B3QIQyXRXa5/G7zWkpjpDQbh/+FQPJsuUKQ9yu6oLb2lFepqgFli8GqKxSGXuDxC0hDQy/vAMoOK5VdkIY4IA=="],
 
     "@fontsource/readex-pro": ["@fontsource/readex-pro@5.3.0", "", {}, "sha512-llvAZL81cEA7kgp9AnhgMRUVsZqb2i5njgLN0uQCNa0+jI8jjscZPOVyiqnUUGvzwmCFhsHw2OBQeF4MyygCXA=="],
 
