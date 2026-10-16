@@ -140,6 +140,7 @@ function refresh() {
   const sc = shown('.fragment', hook);
   hook.dataset.sc = String(sc);
   hook.classList.toggle('inside', sc >= 2 && sc <= 7);
+  if (sc > 0 && !hook.classList.contains('arrived')) arriveNow(); // skipped ahead: end the journey now
   $('#stairs').className = `stairs at${shown('.stepbox', $('#stairs'))}`;
   $$('.stepbox').forEach((s) => s.classList.toggle('lit', s.classList.contains('current-fragment')));
   $('#chart').classList.toggle('drawn', $('#drawchart').classList.contains('visible'));
@@ -175,25 +176,37 @@ function refresh() {
 }
 
 // The hook slide travels back through the centuries on its own, then arrives.
+// Every timer is kept so that leaving the slide, or pressing → before the journey ends, stops it at once.
 let journey = 0;
+let waits: number[] = [];
+function stopJourney() {
+  clearInterval(journey);
+  waits.forEach(clearTimeout);
+  waits = [];
+}
+function arriveNow() {
+  stopJourney();
+  $('#century').textContent = '1';
+  $('#hook').classList.add('arrived');
+}
 function travel(on: boolean) {
   const hook = $('#hook');
-  clearInterval(journey);
+  stopJourney();
   hook.classList.remove('arrived');
   const label = $('#century');
   label.textContent = '15';
   if (!on) return;
   let c = 15;
-  window.setTimeout(() => {
+  waits.push(window.setTimeout(() => {
     journey = window.setInterval(() => {
       c -= 1;
       label.textContent = String(c);
       if (c <= 1) {
         clearInterval(journey);
-        window.setTimeout(() => hook.classList.add('arrived'), 700);
+        waits.push(window.setTimeout(() => hook.classList.add('arrived'), 700));
       }
     }, 330);
-  }, 1300);
+  }, 1300));
 }
 
 // ------------------------------------------------------------------ deck
