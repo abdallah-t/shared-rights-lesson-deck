@@ -175,6 +175,22 @@ function refresh() {
   }
 }
 
+// «مع أم ضد؟»: the class votes by clicking a side; right-click takes a vote back. Counts last until the deck reloads.
+const votes = { pro: 0, con: 0 };
+function drawVotes() {
+  const total = votes.pro + votes.con;
+  for (const side of ['pro', 'con'] as const) {
+    $(`#debate .vote .${side} b`).textContent = String(votes[side]);
+    $(`#debate .split .${side === 'pro' ? 'p' : 'c'}`).style.flexGrow = String(total ? votes[side] : 1);
+  }
+}
+for (const btn of $$<HTMLButtonElement>('#debate .vote button')) {
+  const side = btn.dataset.side as 'pro' | 'con';
+  btn.addEventListener('click', () => { votes[side]++; drawVotes(); btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump'); });
+  btn.addEventListener('contextmenu', (e) => { e.preventDefault(); votes[side] = Math.max(0, votes[side] - 1); drawVotes(); });
+}
+drawVotes();
+
 // The hook slide travels back through the centuries on its own, then arrives.
 // Every timer is kept so that leaving the slide, or pressing → before the journey ends, stops it at once.
 let journey = 0;

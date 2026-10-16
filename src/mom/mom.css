@@ -526,3 +526,20 @@ body.wiping .reveal .slides { opacity: 0; transition: none; }
 
 /* ---------- title slide: the Ministry of Education logo, large, at the top ---------- */
 .reveal .moe { position: absolute; top: 40px; left: 0; right: 0; margin-inline: auto; height: 230px; border-radius: 22px; background: #fff; padding: 12px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); }
+
+/* ---------- slide: «مع أم ضد؟», a debate on who raises the children, with class voting ---------- */
+.reveal #debate { align-items: center; text-align: center; }
+.reveal .dlg { position: relative; max-width: 1450px; margin-top: 34px; background: var(--cream); color: #1d1a2e; border-radius: 40px; padding: 30px 56px 40px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45); text-align: right; }
+.reveal .dlg::after { content: ''; position: absolute; bottom: -34px; right: 140px; width: 60px; height: 40px; background: var(--cream); clip-path: polygon(0 0, 100% 0, 80% 100%); }
+.reveal .dlg .who { display: flex; align-items: center; gap: 14px; font: 700 30px 'Tajawal'; color: #6a4a8a; }
+.reveal .dlg .av { width: 58px; height: 58px; background: var(--plum2); color: var(--gold2); font: 700 30px 'Tajawal'; padding-bottom: 4px; }
+.reveal .dlg p { font: 700 54px/1.6 'El Messiri'; margin-top: 10px; }
+.reveal .vote { display: flex; align-items: center; gap: 40px; width: 100%; max-width: 1500px; margin-top: 70px; }
+.reveal .vote button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 18px; padding: 18px 40px; border-radius: 999px; font: 700 48px 'El Messiri'; flex: none; transition: transform 0.15s; }
+.reveal .vote button img.e { width: 70px; height: 70px; } .reveal .vote button b { font: 700 48px 'Reem Kufi'; min-width: 60px; text-align: center; background: rgba(0, 0, 0, 0.18); border-radius: 999px; padding: 0 16px; }
+.reveal .vote .pro { background: var(--sage); color: #1c2a12; } .reveal .vote .con { background: var(--coral); color: #2e100b; }
+.reveal .vote button:hover { transform: scale(1.04); } .reveal .vote button.bump { animation: pop 0.4s var(--ease); }
+.reveal .split { flex: 1; position: relative; display: flex; height: 34px; border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, 0.08); }
+.reveal .split i { flex: 1 1 0; transition: flex-grow 0.6s var(--ease); } .reveal .split .p { background: var(--sage); } .reveal .split .c { background: var(--coral); }
+.reveal .split small { position: absolute; inset-inline: 0; top: 46px; font: 500 20px 'Tajawal'; color: var(--muted); }
+.reveal .split { overflow: visible; } .reveal .split .p { border-radius: 0 999px 999px 0; } .reveal .split .c { border-radius: 999px 0 0 999px; }

@@ -2,7 +2,7 @@
 
 عرض تقديمي تفاعلي لدرس «الحقوق المشتركة بين الزوجين» · أحكام الأسرة والزواج في الإسلام · دين 201 · ثاني ثانوي.
 
-An interactive lesson deck (37 slides, Arabic, right to left) built with reveal.js and a live three.js background, in a calm "Lantern Night" style.
+An interactive lesson deck (38 slides, Arabic, right to left) built with reveal.js and a live three.js background, in a calm "Lantern Night" style.
 
 ![Style board](docs/style-board.png)
 
