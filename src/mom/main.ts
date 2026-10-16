@@ -148,7 +148,6 @@ function refresh() {
   const chat = $('#chat');
   chat.scrollTo({ top: chat.scrollHeight });
   for (const m of $$('.mcq')) m.classList.toggle('solved', shown('[data-solve]', m.closest('section')!) > 0);
-  $('#aicard').classList.toggle('judged', shown('[data-judge]') > 0);
   const lit = Math.max(0, ...$$('[data-lamps].visible').map((e) => +e.dataset.lamps!));
   const order = [0, 1, 2, 5, 3, 4, 6]; // the four studied in the activity light first
   $$('#lamps .lamp').forEach((l, i) => {
