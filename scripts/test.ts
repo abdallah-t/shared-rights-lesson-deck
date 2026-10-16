@@ -19,6 +19,8 @@ page.on('requestfailed', (r) => r.failure()?.errorText !== 'net::ERR_ABORTED' &&
 await page.goto(pathToFileURL(resolve(app, 'deck/index.html')).href + (query ? `?${query}` : ''));
 await page.waitForFunction(() => (window as any).__deck?.ready === true, null, { timeout: 30000 });
 const where = () => page.evaluate(() => { const i = (window as any).__deck.reveal.getIndices(); return `${String(i.h + 1).padStart(2, '0')}.${(i.f ?? -1) + 1}`; });
+// Find the quiz and hook slides by their content, so adding slides does not break the test.
+const [quiz, hook] = await page.evaluate(() => { const all = [...document.querySelectorAll('.reveal .slides > section')]; const at = (i: number) => String(i + 1).padStart(2, '0'); return [at(all.findIndex((s) => s.querySelector('.quiz'))), at(all.findIndex((s) => s.id === 'hook'))]; });
 let n = 0;
 let last = '';
 await page.waitForTimeout(2600);
@@ -27,9 +29,9 @@ for (let k = 0; k < 200; k++) {
   if (at === last) break;
   last = at;
   // The hook slide travels on its own for a few seconds before it settles.
-  if (at === '04.0') await page.waitForTimeout(6500);
+  if (at === `${hook}.0`) await page.waitForTimeout(6500);
   // Answer each quiz question: first a wrong option, then the right one.
-  if (at.startsWith('10.') && at !== '10.0') {
+  if (at.startsWith(`${quiz}.`) && at !== `${quiz}.0`) {
     const q = +at.split('.')[1] - 1;
     await page.keyboard.press(String(((q + 1) % 4) + 1));
     await page.waitForTimeout(300);
